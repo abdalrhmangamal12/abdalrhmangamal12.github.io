@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abdalrhman Gamal — SLAM &amp; Computer Vision Engineer</title>
-<meta name="description" content="Senior SLAM & Computer Vision Engineer — 3D reconstruction, sensor fusion, real-time localization and mapping. Selected projects & experience.">
+<title>Abdalrhman Gamal — Robotics Software Engineer</title>
+<meta name="description" content="Robotics Software Engineer — SLAM, sensor fusion, navigation and perception for autonomous mobile robots and drones. Modern C++, ROS 2, PX4. Selected projects & experience.">
 <meta name="theme-color" content="#5b3fa0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,6 +142,8 @@ section{padding:96px 0}
 .tl-item::before{content:"";position:absolute;left:-33px;top:5px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
 .tl-role{font-size:19px;font-weight:700;letter-spacing:-.3px}
 .tl-meta{font-size:13.5px;color:var(--accent);font-weight:600;margin:3px 0 10px}
+.tl-meta a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;transition:opacity .18s}
+.tl-meta a:hover{opacity:.7}
 .tl-desc{color:var(--text-muted);font-size:15px}
 
 /* ---------- EDUCATION ---------- */
@@ -262,10 +264,11 @@ footer a{color:var(--accent);font-weight:600}
   <div class="container hero-grid">
     <div class="reveal">
       <span class="eyebrow"><span class="pulse"></span>Available for select projects</span>
-      <h1>Hi, I'm Abdalrhman —<br><span class="grad">SLAM &amp; Computer Vision</span> Engineer</h1>
+      <h1>Hi, I'm Abdalrhman —<br><span class="grad">Robotics Software</span> Engineer</h1>
       <p class="hero-sub">
-        I build <strong>SLAM, sensor fusion, navigation, and perception</strong> systems for autonomous
-        mobile robots — from indoor/outdoor localization to GPS-denied drones and full autonomy stacks.
+        I engineer <strong>SLAM, sensor fusion, and navigation</strong> stacks for autonomous mobile
+        robots and drones — built in high-performance <strong>modern C++</strong> with a focus on
+        concurrency and real-world reliability.
       </p>
       <div class="hero-actions">
         <a href="#work" class="btn btn-primary">View my work →</a>
@@ -274,11 +277,11 @@ footer a{color:var(--accent);font-weight:600}
     </div>
     <div class="hero-portrait reveal">
       <div class="portrait-frame">
-        <img src="images/photo.jpeg" alt="Abdalrhman Gamal — SLAM & Computer Vision Engineer">
+        <img src="images/photo.jpeg" alt="Abdalrhman Gamal — Robotics Software Engineer">
       </div>
       <div class="portrait-badge">
         <div class="n">2+ yrs</div>
-        <div class="l">Robotics &amp; CV</div>
+        <div class="l">Robotics SW</div>
       </div>
     </div>
   </div>
@@ -289,29 +292,29 @@ footer a{color:var(--accent);font-weight:600}
   <div class="container">
     <div class="sec-head reveal">
       <div class="sec-kicker">About</div>
-      <h2>Perception &amp; autonomy, end to end</h2>
+      <h2>Autonomy software, end to end</h2>
     </div>
     <div class="about-grid">
       <div class="about-text reveal">
         <p>
-          I'm a <strong>Senior SLAM &amp; Computer Vision Engineer</strong> specializing in the full
-          perception-to-autonomy pipeline: 3D reconstruction, multi-sensor fusion (LiDAR, camera, IMU,
-          RTK-GNSS), real-time localization, and mapping.
+          I'm a <strong>Robotics Software Engineer</strong> focused on the full autonomy stack — SLAM,
+          multi-sensor fusion (LiDAR, camera, IMU, RTK-GNSS), localization, and navigation for autonomous
+          mobile robots and drones.
         </p>
         <p>
-          My work spans <strong>industry engagements and full-time roles</strong> — high-precision mobile
-          mapping (&lt;10 cm), GPS-denied drone inspection with LiDAR-inertial odometry, vision-guided
-          industrial robotics, and outdoor navigation stacks on Clearpath fleets. I ship production systems
-          on <strong>ROS 2, Nav2, MoveIt 2, PX4, and Fast DDS</strong>.
+          Most of my work lives in <strong>high-performance modern C++</strong> — concurrency, real-time
+          data pipelines, and tight integration with <strong>ROS 2, Nav2, and PX4</strong>. I build systems
+          that hold up in the field: industrial platforms with RTK-grade sensors, GPS-denied inspection
+          drones, and outdoor robots deployed on NVIDIA Jetson.
         </p>
         <p>
-          I care about systems that hold up in the field — under glare, GPS denial, and real-world
-          tolerances — not just in the lab.
+          Across full-time and contract roles I've shipped production autonomy — from RTK localization on
+          industrial rovers to LiDAR-inertial odometry and graph-based SLAM for GPS-denied flight.
         </p>
       </div>
       <div class="about-facts reveal">
-        <div class="fact"><div class="k">Focus</div><div class="v">SLAM · Sensor Fusion · 3D Vision</div></div>
-        <div class="fact"><div class="k">Stack</div><div class="v">ROS 2 · Nav2 · MoveIt 2 · PX4</div></div>
+        <div class="fact"><div class="k">Focus</div><div class="v">SLAM · Sensor Fusion · Navigation</div></div>
+        <div class="fact"><div class="k">Core</div><div class="v">Modern C++ · Concurrency · ROS 2</div></div>
         <div class="fact"><div class="k">Domains</div><div class="v">Drones · Mobile Robots · Industrial</div></div>
         <div class="fact"><div class="k">Based in</div><div class="v">Cairo, Egypt · Remote</div></div>
       </div>
@@ -331,27 +334,47 @@ footer a{color:var(--accent);font-weight:600}
         <div class="tl-role">Robotics Software Engineer</div>
         <div class="tl-meta">Wakeb Data · Full-time · Cairo, Egypt · Jan 2025 – Present</div>
         <div class="tl-desc">
-          Autonomous navigation &amp; localization for mobile robots: SLAM and sensor fusion for reliable
-          indoor/outdoor and GPS-denied operation, high-accuracy RTK-GPS localization, custom Nav2 and Mesh
-          Navigation (MeshNav) plugins for path planning and terrain adaptation, EKF fusion of GPS/IMU/encoders,
-          and cloud integration over MQTT for industrial and logistics deployments.
+          Autonomy for the Clearpath <strong>Panther</strong> and custom industrial platforms. Integrated
+          industrial-grade sensors — <strong>Fixposition</strong> GPS, <strong>Septentrio AntaRx-Si3</strong>,
+          and tactical-grade IMUs — alongside <strong>ZED</strong> and <strong>Intel RealSense</strong> depth
+          cameras, deployed on <strong>NVIDIA Jetson</strong>. Built SLAM, sensor fusion, RTK localization, and
+          custom Nav2 / Mesh Navigation (MeshNav) plugins in modern C++.
         </div>
       </div>
       <div class="tl-item reveal">
-        <div class="tl-role">Freelance Robotics &amp; Computer Vision Engineer</div>
-        <div class="tl-meta">Upwork · Remote · Jan 2023 – Present</div>
+        <div class="tl-role">Robotics Software Engineer — Drone Autonomy</div>
+        <div class="tl-meta"><a href="https://safesightxp.com/" target="_blank" rel="noopener">SafeSight</a> · Part-time · Oct 2025 – Jun 2026</div>
         <div class="tl-desc">
-          Delivered SLAM &amp; visual-odometry mapping (Cartographer, SLAM Toolbox, GMapping), custom Nav2 plugins
-          (Pure Pursuit with a ZeroCBF filter), RealSense/ZED 3D perception, YOLO/SSD detection with OpenCV
-          calibration, and photogrammetry / point-cloud processing (PCL) — across drone, service, and industrial robots.
+          PX4-based navigation for <strong>GPS-denied environments</strong> on inspection drones. LiDAR-inertial
+          odometry, <strong>graph-based optimization</strong> for localization and mapping, and real-time SLAM
+          feeding external position estimates into the PX4 flight stack.
         </div>
       </div>
       <div class="tl-item reveal">
         <div class="tl-role">Computer Vision Engineer</div>
-        <div class="tl-meta">OXO Technology · Part-time · Madrid, Spain (Remote) · Feb 2023 – Present</div>
+        <div class="tl-meta"><a href="https://oxotechnology.com/" target="_blank" rel="noopener">OXO Technology</a> · Contract · Madrid, Spain (Remote) · Jan – Jun 2026</div>
         <div class="tl-desc">
-          Advanced detection and stereo-vision algorithms for medical applications — point-cloud generation and
-          processing, color-detection to improve diagnostic accuracy, and 3D spatial analysis with PCL and Open3D.
+          Detection and stereo-vision algorithms for medical applications — point-cloud generation and
+          processing, colour-based detection to improve diagnostic accuracy, and 3D spatial analysis with
+          PCL and Open3D.
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-role">Robotics Software Engineer — Mobile Mapping</div>
+        <div class="tl-meta"><a href="https://www.jaweso.com/" target="_blank" rel="noopener">JAWESO</a> · Contract · Jul – Dec 2023</div>
+        <div class="tl-desc">
+          High-precision mobile mapping and localization: fused 360° panoramic cameras, RTK-GNSS, LiDAR, and
+          IMU into a pipeline achieving <strong>&lt;10 cm</strong> absolute accuracy for digital-twin generation
+          and infrastructure inspection.
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-role">Freelance Robotics Software Engineer</div>
+        <div class="tl-meta">Upwork · Remote · Jan 2023 – Present</div>
+        <div class="tl-desc">
+          The base for my contract work — SLAM and visual-odometry mapping (Cartographer, SLAM Toolbox,
+          GMapping), custom Nav2 plugins (Pure Pursuit with a ZeroCBF filter), RealSense/ZED 3D perception,
+          and point-cloud processing across drone, service, and industrial robots.
         </div>
       </div>
     </div>
@@ -471,8 +494,8 @@ footer a{color:var(--accent);font-weight:600}
         <h3><span class="ic">◎</span>SLAM &amp; Perception</h3>
         <div class="skill-list">
           <span class="skill">FAST-LIO2</span><span class="skill">Point-LIO</span><span class="skill">LIO-SAM</span>
-          <span class="skill">Visual Odometry</span><span class="skill">Sensor Fusion</span><span class="skill">EKF / UKF</span>
-          <span class="skill">Point Cloud Reg.</span><span class="skill">Open3D</span><span class="skill">PCL</span>
+          <span class="skill">Graph SLAM (iSAM2)</span><span class="skill">Visual Odometry</span><span class="skill">Sensor Fusion</span>
+          <span class="skill">EKF / UKF</span><span class="skill">Open3D</span><span class="skill">PCL</span>
         </div>
       </div>
       <div class="skill-col reveal">
@@ -486,8 +509,8 @@ footer a{color:var(--accent);font-weight:600}
       <div class="skill-col reveal">
         <h3><span class="ic">⌘</span>Engineering</h3>
         <div class="skill-list">
-          <span class="skill">C++</span><span class="skill">Python</span><span class="skill">CUDA</span>
-          <span class="skill">OpenCV</span><span class="skill">libigl</span><span class="skill">Docker</span>
+          <span class="skill">Modern C++</span><span class="skill">Concurrency</span><span class="skill">Python</span>
+          <span class="skill">CUDA</span><span class="skill">OpenCV</span><span class="skill">Docker</span>
           <span class="skill">Linux</span><span class="skill">Qt</span><span class="skill">Git</span>
         </div>
       </div>
@@ -518,7 +541,7 @@ footer a{color:var(--accent);font-weight:600}
     <a href="https://github.com/abdalrhmangamal12" target="_blank" rel="noopener">GitHub</a>
     <a href="mailto:abdalrhmangamal1999@gmail.com">Email</a>
   </div>
-  © <span id="year">2026</span> Abdalrhman Gamal · Senior SLAM &amp; Computer Vision Engineer · Built with HTML/CSS, hosted on <a href="https://github.com/abdalrhmangamal12">GitHub Pages</a>
+  © <span id="year">2026</span> Abdalrhman Gamal · Robotics Software Engineer · Built with HTML/CSS, hosted on <a href="https://github.com/abdalrhmangamal12">GitHub Pages</a>
 </footer>
 
 <script>

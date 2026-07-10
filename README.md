@@ -1,7 +1,7 @@
-# Abdalrhman — SLAM &amp; Computer Vision Portfolio
+# Abdalrhman Gamal — Robotics Software Engineer
 
-Senior SLAM &amp; Computer Vision Engineer. Selected projects in 3D reconstruction,
-sensor fusion, real-time localization, and mapping systems.
+Robotics Software Engineer. SLAM, sensor fusion, navigation, and perception for
+autonomous mobile robots and drones — built in modern C++ on ROS 2, Nav2, and PX4.
 
 **🔗 Live site:** https://abdalrhmangamal12.github.io/
 
