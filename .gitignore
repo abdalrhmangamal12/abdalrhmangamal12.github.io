@@ -11,3 +11,6 @@ Thumbs.db
 *.key
 *_accessKeys.csv
 .env
+
+# large local videos (use YouTube embeds instead)
+*.mp4
