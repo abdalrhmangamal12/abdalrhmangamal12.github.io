@@ -168,18 +168,19 @@ section{padding:96px 0}
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .proj-card{
   position:relative;background:#fff;border:1px solid var(--border);border-radius:18px;
-  padding:28px 26px;box-shadow:var(--shadow-sm);
-  transition:transform .22s,box-shadow .22s,border-color .22s;
+  box-shadow:var(--shadow-sm);transition:transform .22s,box-shadow .22s,border-color .22s;
   display:flex;flex-direction:column;overflow:hidden;
 }
-.proj-card::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .3s}
 .proj-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
-.proj-card:hover::after{transform:scaleX(1)}
-.proj-num{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1px}
-.proj-domain{font-size:11.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px}
-.proj-title{font-size:20px;font-weight:700;letter-spacing:-.4px;line-height:1.3;margin-bottom:12px}
-.proj-desc{font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:18px;flex:1}
-.proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.proj-cover{position:relative;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(150deg,var(--accent-soft),#e7e1fa)}
+.proj-cover img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.proj-card:hover .proj-cover img{transform:scale(1.05)}
+.cover-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--accent);font-weight:700;font-size:12.5px;letter-spacing:.5px;text-transform:uppercase}
+.proj-badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);color:var(--accent);font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:8px;z-index:1;box-shadow:var(--shadow-sm)}
+.proj-body{padding:20px 24px 24px;display:flex;flex-direction:column;flex:1}
+.proj-domain{font-size:11.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:7px}
+.proj-title{font-size:19px;font-weight:700;letter-spacing:-.4px;line-height:1.3;margin-bottom:13px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
 .ptag{font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-muted)}
 .ptag.hl{background:var(--accent-soft);border-color:#d9cef7;color:var(--accent)}
 .proj-link{font-size:14px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:auto}
@@ -438,67 +439,95 @@ footer a{color:var(--accent);font-weight:600}
     </div>
     <div class="proj-grid">
 
-      <a href="project1.html" class="proj-card reveal">
-        <div class="proj-num">01</div>
-        <div class="proj-domain">3D Reconstruction · Dental Geometry</div>
-        <div class="proj-title">Automated Dental Shell Generation Pipeline</div>
-        <div class="proj-desc">End-to-end pipeline converting raw intraoral scans into watertight multi-thickness shells using SDF offset surfaces, 360° raycasting, and Poisson reconstruction.</div>
-        <div class="proj-tags"><span class="ptag hl">Intraoral Scans</span><span class="ptag hl">Surface Recon</span><span class="ptag">Open3D</span><span class="ptag">libigl</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
-      </a>
-
-      <a href="project2.html" class="proj-card reveal">
-        <div class="proj-num">02</div>
-        <div class="proj-domain">Mobile Mapping · Sensor Fusion</div>
-        <div class="proj-title">High-Precision Mobile Mapping &amp; Localization</div>
-        <div class="proj-desc">6-month engagement integrating 134 MP panoramic cameras, RTK-GNSS, LiDAR, and IMU into a mapping pipeline achieving &lt;10 cm accuracy for digital twins.</div>
-        <div class="proj-tags"><span class="ptag hl">Sensor Fusion</span><span class="ptag hl">Localization</span><span class="ptag">ROS 2</span><span class="ptag">RTK-GNSS</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
-      </a>
-
-      <a href="project3.html" class="proj-card reveal">
-        <div class="proj-num">03</div>
-        <div class="proj-domain">Real-Time Vision · Industrial Robotics</div>
-        <div class="proj-title">Vision-Based Seam Tracking for Robotic Welding</div>
-        <div class="proj-desc">Closed-loop perception detecting and tracking welding seams in real time, correcting robot trajectory under glare, arc light, and part tolerances.</div>
-        <div class="proj-tags"><span class="ptag hl">Real-Time Vision</span><span class="ptag hl">Closed-Loop</span><span class="ptag">Hand-Eye Calib</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
-      </a>
-
-      <a href="project4.html" class="proj-card reveal">
-        <div class="proj-num">04</div>
-        <div class="proj-domain">3D Vision · Collaborative Robotics</div>
-        <div class="proj-title">Collaborative Robotic Assembly Using 3D Vision</div>
-        <div class="proj-desc">CAD-driven assembly using dual RGB-D cameras for 6-DOF pose estimation, enabling product changeover without reprogramming alongside human workers.</div>
-        <div class="proj-tags"><span class="ptag hl">Pose Estimation</span><span class="ptag hl">CAD Registration</span><span class="ptag">RealSense</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
-      </a>
-
-      <a href="project5.html" class="proj-card reveal">
-        <div class="proj-num">05</div>
-        <div class="proj-domain">Healthcare Robotics · Full-Stack</div>
-        <div class="proj-title">Healthcare Robotics System (Full-Stack)</div>
-        <div class="proj-desc">Nursing-assist robot: hoverboard base with ros2_control, Nav2 navigation, xArm7 + Inspire Hand manipulation via MoveIt 2, Leap Motion teleop, and Qt mission UI.</div>
-        <div class="proj-tags"><span class="ptag hl">ROS 2 Control</span><span class="ptag hl">Nav2</span><span class="ptag hl">MoveIt 2</span><span class="ptag">xArm7</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
+      <a href="projects/high-precision-mobile-mapping/" class="proj-card reveal">
+        <div class="proj-cover">
+          <span class="proj-badge">01</span>
+          <img src="projects/high-precision-mobile-mapping/img/cover.webp" alt="High-Precision Mobile Mapping (JAWESO Panora)" loading="lazy">
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">Mobile Mapping · Sensor Fusion</div>
+          <div class="proj-title">High-Precision Mobile Mapping &amp; Localization</div>
+          <div class="proj-tags"><span class="ptag hl">Sensor Fusion</span><span class="ptag hl">Localization</span><span class="ptag">ROS 2</span><span class="ptag">RTK-GNSS</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
       </a>
 
       <a href="project6.html" class="proj-card reveal">
-        <div class="proj-num">06</div>
-        <div class="proj-domain">LiDAR-Inertial SLAM · GPS-Denied Flight</div>
-        <div class="proj-title">SafeSight: GPS-Denied Drone Inspection</div>
-        <div class="proj-desc">Modular LIO device (Ouster OS1-128 + VN-310) supplying real-time external VIO to PX4 for position-hold underground. FAST-LIO2 &amp; Point-LIO with Fast DDS SHM tuning.</div>
-        <div class="proj-tags"><span class="ptag hl">FAST-LIO2</span><span class="ptag hl">PX4 EKF2</span><span class="ptag">Ouster OS1-128</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
+        <div class="proj-cover">
+          <span class="proj-badge">02</span>
+          <div class="cover-ph">LiDAR-Inertial SLAM · GPS-Denied Flight</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">LiDAR-Inertial SLAM · GPS-Denied Flight</div>
+          <div class="proj-title">SafeSight: GPS-Denied Drone Navigation</div>
+          <div class="proj-tags"><span class="ptag hl">FAST-LIO2</span><span class="ptag hl">PX4 EKF2</span><span class="ptag">Ouster OS1-128</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
+      </a>
+
+      <a href="project5.html" class="proj-card reveal">
+        <div class="proj-cover">
+          <span class="proj-badge">03</span>
+          <div class="cover-ph">Healthcare Robotics · Full-Stack</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">Healthcare Robotics · Full-Stack</div>
+          <div class="proj-title">Healthcare Robotics System (Full-Stack)</div>
+          <div class="proj-tags"><span class="ptag hl">ROS 2 Control</span><span class="ptag hl">Nav2</span><span class="ptag hl">MoveIt 2</span><span class="ptag">xArm7</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
+      </a>
+
+      <a href="project4.html" class="proj-card reveal">
+        <div class="proj-cover">
+          <span class="proj-badge">04</span>
+          <div class="cover-ph">3D Vision · Collaborative Robotics</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">3D Vision · Collaborative Robotics</div>
+          <div class="proj-title">Collaborative Robotic Assembly Using 3D Vision</div>
+          <div class="proj-tags"><span class="ptag hl">Pose Estimation</span><span class="ptag hl">CAD Registration</span><span class="ptag">RealSense</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
+      </a>
+
+      <a href="project3.html" class="proj-card reveal">
+        <div class="proj-cover">
+          <span class="proj-badge">05</span>
+          <div class="cover-ph">Real-Time Vision · Industrial Robotics</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">Real-Time Vision · Industrial Robotics</div>
+          <div class="proj-title">Vision-Based Seam Tracking for Robotic Welding</div>
+          <div class="proj-tags"><span class="ptag hl">Real-Time Vision</span><span class="ptag hl">Closed-Loop</span><span class="ptag">Hand-Eye Calib</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
+      </a>
+
+      <a href="project1.html" class="proj-card reveal">
+        <div class="proj-cover">
+          <span class="proj-badge">06</span>
+          <div class="cover-ph">3D Reconstruction · Dental Geometry</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">3D Reconstruction · Dental Geometry</div>
+          <div class="proj-title">Automated Dental Shell Generation Pipeline</div>
+          <div class="proj-tags"><span class="ptag hl">Intraoral Scans</span><span class="ptag hl">Surface Recon</span><span class="ptag">Open3D</span><span class="ptag">libigl</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
       </a>
 
       <a href="project7.html" class="proj-card reveal">
-        <div class="proj-num">07</div>
-        <div class="proj-domain">Outdoor Robotics · Navigation</div>
-        <div class="proj-title">Outdoor Robotics Platform Engineering</div>
-        <div class="proj-desc">Full nav &amp; localization stack for Clearpath Jackal/Panther fleets: multi-sensor fusion (Septentrio RTK, Ouster, Livox, Hesai), Nav2 custom plugins, swarm, DDS tuning.</div>
-        <div class="proj-tags"><span class="ptag hl">Outdoor Nav</span><span class="ptag hl">Nav2 Plugins</span><span class="ptag">Septentrio RTK</span><span class="ptag">Isaac Sim</span></div>
-        <span class="proj-link">View project <span class="arw">→</span></span>
+        <div class="proj-cover">
+          <span class="proj-badge">07</span>
+          <div class="cover-ph">Outdoor Robotics · Navigation</div>
+        </div>
+        <div class="proj-body">
+          <div class="proj-domain">Outdoor Robotics · Navigation</div>
+          <div class="proj-title">Outdoor Robotics Platform Engineering</div>
+          <div class="proj-tags"><span class="ptag hl">Outdoor Nav</span><span class="ptag hl">Nav2 Plugins</span><span class="ptag">Septentrio RTK</span><span class="ptag">Isaac Sim</span></div>
+          <span class="proj-link">View project <span class="arw">→</span></span>
+        </div>
       </a>
 
     </div>
