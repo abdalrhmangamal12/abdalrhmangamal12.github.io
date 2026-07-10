@@ -3,415 +3,486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abdalrhman — SLAM & Computer Vision Projects</title>
+<title>Abdalrhman Gamal — SLAM &amp; Computer Vision Engineer</title>
+<meta name="description" content="Senior SLAM & Computer Vision Engineer — 3D reconstruction, sensor fusion, real-time localization and mapping. Selected projects & experience.">
+<meta name="theme-color" content="#5b3fa0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
-   INDEX PAGE — Classic Professional Style
+   Single-page portfolio — Montserrat, clean, professional
    ========================================================= */
-:root {
-  --bg:         #ffffff;
-  --surface:    #f8f8f6;
-  --surface2:   #f0f0ec;
-  --border:     #d8d8d0;
-  --divider:    #e4e4dc;
-  --text:       #1a1a18;
-  --text-muted: #6b6b62;
-  --accent:     #1a4480;
-  --accent-lt:  #e8eef7;
-  --font-body:  Georgia, 'Times New Roman', serif;
-  --font-ui:    -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --font-mono:  'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+:root{
+  --bg:#ffffff;
+  --bg-alt:#f6f5fa;
+  --surface:#ffffff;
+  --border:#e6e3ef;
+  --text:#1c1b22;
+  --text-muted:#6a6780;
+  --accent:#5b3fa0;
+  --accent-2:#7c5cd0;
+  --accent-soft:#efeafc;
+  --shadow:0 12px 40px -12px rgba(46,26,110,.18);
+  --shadow-sm:0 4px 18px -8px rgba(46,26,110,.18);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --maxw:1080px;
 }
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-ui);
-  font-size: 16px;
-  line-height: 1.75;
-  -webkit-font-smoothing: antialiased;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+section{padding:96px 0}
 
-/* ── LAYOUT ── */
-.wrap {
-  max-width: 840px;
-  margin: 0 auto;
-  padding: 72px 40px 64px;
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .25s, box-shadow .25s;
 }
-
-/* ── HEADER ── */
-.page-eyebrow {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
+.nav.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 24px -18px rgba(0,0,0,.4)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:700;font-size:16px;letter-spacing:.2px;display:flex;align-items:center;gap:10px}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{
+  font-size:14px;font-weight:500;color:var(--text-muted);
+  padding:8px 14px;border-radius:8px;transition:color .18s,background .18s;
 }
-
-h1 {
-  font-family: var(--font-body);
-  font-size: 48px;
-  font-weight: normal;
-  line-height: 1.2;
-  color: var(--text);
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
+.nav-links a:hover{color:var(--text);background:var(--bg-alt)}
+.nav-cta{
+  font-size:14px;font-weight:600;color:#fff!important;
+  background:var(--accent);padding:9px 18px!important;border-radius:9px;
+  transition:transform .18s,box-shadow .18s,background .18s!important;
 }
+.nav-cta:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px;font-size:22px;color:var(--text)}
 
-h1 em {
-  font-style: italic;
-  color: var(--accent);
+/* ---------- HERO ---------- */
+.hero{position:relative;padding:180px 0 120px;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 55% at 78% 8%, rgba(124,92,208,.16), transparent 60%),
+    radial-gradient(50% 50% at 8% 90%, rgba(91,63,160,.12), transparent 55%);
 }
-
-.intro {
-  font-size: 16px;
-  color: var(--text-muted);
-  max-width: 620px;
-  line-height: 1.85;
-  margin-bottom: 52px;
+.hero-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:56px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-soft);
+  padding:6px 14px;border-radius:999px;margin-bottom:24px;
 }
-
-/* ── RULE ── */
-.rule {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin-bottom: 36px;
+.eyebrow .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{font-size:clamp(38px,6vw,62px);line-height:1.08;font-weight:800;letter-spacing:-1.2px;margin-bottom:22px}
+.hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:18px;color:var(--text-muted);max-width:560px;margin-bottom:34px;font-weight:400}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:15px;
+  padding:14px 26px;border-radius:11px;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s,border-color .18s;
 }
+.btn-primary{background:var(--accent);color:#fff;box-shadow:var(--shadow-sm)}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-ghost{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
 
-/* ── SECTION HEADER ── */
-.section-head {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 24px;
+/* portrait */
+.hero-portrait{position:relative;justify-self:center}
+.portrait-frame{
+  width:280px;height:340px;border-radius:20px;overflow:hidden;position:relative;
+  background:linear-gradient(160deg,var(--accent-soft),#fff);
+  border:1px solid var(--border);box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;
 }
-
-.section-head h2 {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
+.portrait-frame img{width:100%;height:100%;object-fit:cover}
+.portrait-frame .ph{font-size:15px;color:var(--text-muted);text-align:center;padding:24px;font-weight:500}
+.portrait-badge{
+  position:absolute;bottom:-18px;left:-18px;background:#fff;border:1px solid var(--border);
+  border-radius:14px;padding:14px 18px;box-shadow:var(--shadow-sm);
 }
+.portrait-badge .n{font-size:22px;font-weight:800;color:var(--accent);line-height:1}
+.portrait-badge .l{font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
 
-/* ── PROJECT LIST ── */
-.project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
+/* ---------- SECTION HEADS ---------- */
+.sec-head{margin-bottom:52px;max-width:620px}
+.sec-kicker{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.sec-head h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.8px;line-height:1.15}
+.sec-head p{margin-top:14px;color:var(--text-muted);font-size:16px}
+.alt{background:var(--bg-alt)}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:52px;align-items:start}
+.about-text p{color:var(--text-muted);margin-bottom:18px;font-size:16px}
+.about-text p strong{color:var(--text);font-weight:600}
+.about-facts{display:flex;flex-direction:column;gap:14px}
+.fact{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm)}
+.fact .k{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.fact .v{font-size:15px;color:var(--text);font-weight:500}
+
+/* ---------- EXPERIENCE ---------- */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--border))}
+.tl-item{position:relative;padding-bottom:40px}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{content:"";position:absolute;left:-33px;top:5px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+.tl-role{font-size:19px;font-weight:700;letter-spacing:-.3px}
+.tl-meta{font-size:13.5px;color:var(--accent);font-weight:600;margin:3px 0 10px}
+.tl-desc{color:var(--text-muted);font-size:15px}
+
+/* ---------- PROJECTS ---------- */
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.proj-card{
+  position:relative;background:#fff;border:1px solid var(--border);border-radius:18px;
+  padding:28px 26px;box-shadow:var(--shadow-sm);
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+  display:flex;flex-direction:column;overflow:hidden;
 }
+.proj-card::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.proj-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+.proj-card:hover::after{transform:scaleX(1)}
+.proj-num{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:1px}
+.proj-domain{font-size:11.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin:14px 0 8px}
+.proj-title{font-size:20px;font-weight:700;letter-spacing:-.4px;line-height:1.3;margin-bottom:12px}
+.proj-desc{font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:18px;flex:1}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.ptag{font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-muted)}
+.ptag.hl{background:var(--accent-soft);border-color:#d9cef7;color:var(--accent)}
+.proj-link{font-size:14px;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:6px;margin-top:auto}
+.proj-link .arw{transition:transform .2s}
+.proj-card:hover .proj-link .arw{transform:translateX(4px)}
 
-.project-row {
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  align-items: stretch;
-  background: var(--bg);
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.15s;
-  border-bottom: 1px solid var(--divider);
+/* ---------- SKILLS ---------- */
+.skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.skill-col{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:var(--shadow-sm)}
+.skill-col h3{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.skill-col h3 .ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px}
+.skill-list{display:flex;flex-wrap:wrap;gap:8px}
+.skill{font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;background:var(--bg-alt);border:1px solid var(--border);transition:background .18s,color .18s,border-color .18s}
+.skill:hover{background:var(--accent-soft);color:var(--accent);border-color:#d9cef7}
+
+/* ---------- CONTACT ---------- */
+.contact{text-align:center}
+.contact-card{
+  background:linear-gradient(160deg,#221a3a,#3a2a6b);color:#fff;border-radius:24px;
+  padding:64px 32px;box-shadow:var(--shadow);position:relative;overflow:hidden;
 }
+.contact-card::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 60% at 80% 10%,rgba(124,92,208,.4),transparent 60%)}
+.contact-card>*{position:relative}
+.contact-card h2{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin-bottom:16px}
+.contact-card p{color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 34px;font-size:16px}
+.contact-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-light{background:#fff;color:#2a1e52}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.btn-outline:hover{border-color:#fff;transform:translateY(-2px)}
 
-.project-row:last-child {
-  border-bottom: none;
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--border);padding:34px 0;text-align:center;color:var(--text-muted);font-size:13.5px}
+footer a{color:var(--accent);font-weight:600}
+
+/* ---------- REVEAL ANIM ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:860px){
+  .hero-grid{grid-template-columns:1fr;gap:44px}
+  .hero-portrait{order:-1;justify-self:start}
+  .about-grid{grid-template-columns:1fr;gap:36px}
+  .proj-grid{grid-template-columns:1fr}
+  .skill-groups{grid-template-columns:1fr}
+  .nav-links{
+    position:fixed;top:64px;right:16px;left:16px;flex-direction:column;align-items:stretch;gap:4px;
+    background:#fff;border:1px solid var(--border);border-radius:14px;padding:10px;box-shadow:var(--shadow);
+    display:none;
+  }
+  .nav-links.open{display:flex}
+  .nav-links a{padding:12px 14px}
+  .nav-toggle{display:block}
 }
-
-.project-row:hover {
-  background: var(--surface);
-}
-
-/* left number column */
-.row-num {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--border);
-  border-right: 1px solid var(--divider);
-  padding: 24px 0;
-  font-weight: 600;
-}
-
-.project-row:hover .row-num {
-  color: var(--accent);
-  border-right-color: var(--border);
-}
-
-/* body */
-.row-body {
-  padding: 22px 28px 22px 24px;
-}
-
-.row-domain {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 5px;
-}
-
-.row-title {
-  font-family: var(--font-body);
-  font-size: 20px;
-  font-weight: normal;
-  color: var(--text);
-  line-height: 1.3;
-  margin-bottom: 8px;
-  letter-spacing: -0.2px;
-}
-
-.row-desc {
-  font-size: 13.5px;
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-bottom: 14px;
-}
-
-.row-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.row-tag {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 9px;
-  border-radius: 3px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-}
-
-.row-tag.hl {
-  background: var(--accent-lt);
-  border-color: #b0c4e0;
-  color: var(--accent);
-}
-
-/* arrow */
-.row-arrow {
-  display: flex;
-  align-items: center;
-  padding: 0 24px;
-  font-size: 18px;
-  color: var(--border);
-  transition: color 0.15s, transform 0.15s;
-}
-
-.project-row:hover .row-arrow {
-  color: var(--accent);
-  transform: translateX(3px);
-}
-
-/* ── FOOTER ── */
-footer {
-  margin-top: 60px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 600px) {
-  .wrap { padding: 48px 20px 48px; }
-  h1 { font-size: 32px; }
-  .project-row { grid-template-columns: 36px 1fr auto; }
-  .row-body { padding: 18px 16px; }
-  .row-arrow { padding: 0 16px; }
+@media(max-width:560px){
+  section{padding:72px 0}
+  .hero{padding:130px 0 80px}
+  .contact-card{padding:48px 22px}
 }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-
-  <!-- HEADER -->
-  <div class="page-eyebrow">SLAM &amp; Computer Vision</div>
-  <h1>Abdalrhman's <em>Projects</em></h1>
-  <p class="intro">
-    Senior SLAM &amp; Computer Vision Engineer — selected projects in 3D reconstruction,
-    sensor fusion, real-time localization, and mapping systems.
-  </p>
-
-  <hr class="rule">
-
-  <div class="section-head">
-    <h2>7 Projects</h2>
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="dot"></span>Abdalrhman Gamal</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+    </div>
   </div>
+</nav>
 
-  <!-- PROJECT LIST -->
-  <div class="project-list">
-
-    <!-- 01 -->
-    <a href="project1.html" class="project-row">
-      <div class="row-num">01</div>
-      <div class="row-body">
-        <div class="row-domain">3D Reconstruction &bull; Dental Geometry</div>
-        <div class="row-title">Automated Dental Shell Generation Pipeline</div>
-        <div class="row-desc">
-          End-to-end pipeline converting raw intraoral scans into watertight multi-thickness
-          shells using SDF offset surfaces, 360&deg; raycasting, and Poisson reconstruction.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">Intraoral Scans</span>
-          <span class="row-tag hl">Surface Reconstruction</span>
-          <span class="row-tag">Open3D</span>
-          <span class="row-tag">libigl</span>
-          <span class="row-tag">Poisson</span>
-        </div>
+<!-- ===== HERO ===== -->
+<header class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="reveal">
+      <span class="eyebrow"><span class="pulse"></span>Available for select projects</span>
+      <h1>Hi, I'm Abdalrhman —<br><span class="grad">SLAM &amp; Computer Vision</span> Engineer</h1>
+      <p class="hero-sub">
+        I build <strong>3D reconstruction, sensor-fusion, and real-time localization</strong> systems —
+        from LiDAR-inertial odometry on GPS-denied drones to full autonomy stacks on outdoor robots.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">View my work →</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
       </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
-    <!-- 02 -->
-    <a href="project2.html" class="project-row">
-      <div class="row-num">02</div>
-      <div class="row-body">
-        <div class="row-domain">Mobile Mapping &bull; Sensor Fusion</div>
-        <div class="row-title">High-Precision Mobile Mapping &amp; Localization (JAWESO)</div>
-        <div class="row-desc">
-          6-month industry engagement integrating 134 MP panoramic cameras, RTK-GNSS, LiDAR,
-          and IMU into a mapping pipeline achieving &lt;10 cm accuracy for digital twin generation.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">Sensor Fusion</span>
-          <span class="row-tag hl">Localization</span>
-          <span class="row-tag">ROS 2</span>
-          <span class="row-tag">RTK-GNSS</span>
-          <span class="row-tag">LiDAR</span>
-        </div>
+    </div>
+    <div class="hero-portrait reveal">
+      <div class="portrait-frame">
+        <!-- Replace the div below with: <img src="images/portrait.jpg" alt="Abdalrhman Gamal"> -->
+        <div class="ph">Add your photo →<br><code>images/portrait.jpg</code></div>
       </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
-    <!-- 03 -->
-    <a href="project3.html" class="project-row">
-      <div class="row-num">03</div>
-      <div class="row-body">
-        <div class="row-domain">Real-Time Vision &bull; Industrial Robotics</div>
-        <div class="row-title">Vision-Based Seam Tracking for Robotic Welding</div>
-        <div class="row-desc">
-          Closed-loop perception system detecting and tracking welding seams in real-time,
-          dynamically correcting robot trajectory under glare, arc light, and part tolerances.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">Real-Time Vision</span>
-          <span class="row-tag hl">Closed-Loop Control</span>
-          <span class="row-tag">Hand-Eye Calibration</span>
-          <span class="row-tag">Low Latency</span>
-        </div>
+      <div class="portrait-badge">
+        <div class="n">5+ yrs</div>
+        <div class="l">Robotics &amp; CV</div>
       </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
-    <!-- 04 -->
-    <a href="project4.html" class="project-row">
-      <div class="row-num">04</div>
-      <div class="row-body">
-        <div class="row-domain">3D Vision &bull; Collaborative Robotics</div>
-        <div class="row-title">Collaborative Robotic Assembly Using 3D Vision</div>
-        <div class="row-desc">
-          CAD-driven assembly system using dual RGB-D cameras for 6-DOF pose estimation,
-          enabling product changeover without reprogramming alongside human workers.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">Pose Estimation</span>
-          <span class="row-tag hl">CAD Registration</span>
-          <span class="row-tag">RealSense D435i</span>
-          <span class="row-tag">ABB IRB 120</span>
-        </div>
-      </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
-    <!-- 05 -->
-    <a href="project5.html" class="project-row">
-      <div class="row-num">05</div>
-      <div class="row-body">
-        <div class="row-domain">Healthcare Robotics &bull; End-to-End System</div>
-        <div class="row-title">Healthcare Robotics System (Full-Stack)</div>
-        <div class="row-desc">
-          Complete nursing-assist robot: hoverboard base with ros2_control, Nav2 autonomous
-          navigation, xArm7 + Inspire Hand manipulation with MoveIt 2, Leap Motion teleoperation,
-          force sensing, and Qt mission UI.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">ROS 2 Control</span>
-          <span class="row-tag hl">Nav2</span>
-          <span class="row-tag hl">MoveIt 2</span>
-          <span class="row-tag">xArm7</span>
-          <span class="row-tag">micro-ROS</span>
-        </div>
-      </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
-    <!-- 06 -->
-    <a href="project6.html" class="project-row">
-      <div class="row-num">06</div>
-      <div class="row-body">
-        <div class="row-domain">LiDAR-Inertial SLAM &bull; GPS-Denied Flight</div>
-        <div class="row-title">SafeSight: GPS-Denied Drone Inspection via LiDAR-Inertial Odometry</div>
-        <div class="row-desc">
-          Modular LIO device (Ouster OS1-128 + VectorNav VN-310) supplying real-time external
-          VIO to PX4 for position-hold in underground environments. Shipped FAST-LIO2 and
-          Point-LIO backends with Fast DDS SHM transport tuning.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">FAST-LIO2</span>
-          <span class="row-tag hl">PX4 EKF2</span>
-          <span class="row-tag">Ouster OS1-128</span>
-          <span class="row-tag">Fast DDS SHM</span>
-          <span class="row-tag">MAVLink</span>
-        </div>
-      </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
-    <!-- 07 -->
-    <a href="project7.html" class="project-row">
-      <div class="row-num">07</div>
-      <div class="row-body">
-        <div class="row-domain">Full-Time Role &bull; Wakeb Data &bull; Outdoor Robotics</div>
-        <div class="row-title">Outdoor Robotics Platform Engineering</div>
-        <div class="row-desc">
-          Full navigation and localization stack for Clearpath Jackal/Panther fleets:
-          multi-sensor fusion (Septentrio RTK, Ouster, Livox, Hesai), Nav2 custom plugins,
-          GPS waypoint following, swarm systems, and DDS tuning.
-        </div>
-        <div class="row-tags">
-          <span class="row-tag hl">Outdoor Navigation</span>
-          <span class="row-tag hl">Nav2 Plugins</span>
-          <span class="row-tag">Septentrio RTK</span>
-          <span class="row-tag">Isaac Sim</span>
-          <span class="row-tag">Docker</span>
-        </div>
-      </div>
-      <div class="row-arrow">&#8594;</div>
-    </a>
-
+    </div>
   </div>
+</header>
 
-  <footer>
-    Abdalrhman &mdash; Senior SLAM &amp; Computer Vision Engineer &bull; 2026
-  </footer>
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">About</div>
+      <h2>Perception &amp; autonomy, end to end</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I'm a <strong>Senior SLAM &amp; Computer Vision Engineer</strong> specializing in the full
+          perception-to-autonomy pipeline: 3D reconstruction, multi-sensor fusion (LiDAR, camera, IMU,
+          RTK-GNSS), real-time localization, and mapping.
+        </p>
+        <p>
+          My work spans <strong>industry engagements and full-time roles</strong> — high-precision mobile
+          mapping (&lt;10 cm), GPS-denied drone inspection with LiDAR-inertial odometry, vision-guided
+          industrial robotics, and outdoor navigation stacks on Clearpath fleets. I ship production systems
+          on <strong>ROS 2, Nav2, MoveIt 2, PX4, and Fast DDS</strong>.
+        </p>
+        <p>
+          I care about systems that hold up in the field — under glare, GPS denial, and real-world
+          tolerances — not just in the lab.
+        </p>
+      </div>
+      <div class="about-facts reveal">
+        <div class="fact"><div class="k">Focus</div><div class="v">SLAM · Sensor Fusion · 3D Vision</div></div>
+        <div class="fact"><div class="k">Stack</div><div class="v">ROS 2 · Nav2 · MoveIt 2 · PX4</div></div>
+        <div class="fact"><div class="k">Domains</div><div class="v">Drones · Mobile Robots · Industrial</div></div>
+        <div class="fact"><div class="k">Based in</div><div class="v">Remote / Worldwide</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience" class="alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Experience</div>
+      <h2>Where I've built things</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-role">Robotics Engineer — Outdoor Autonomy</div>
+        <div class="tl-meta">Wakeb Data · Full-time</div>
+        <div class="tl-desc">
+          Full navigation &amp; localization stack for Clearpath Jackal/Panther fleets: multi-sensor fusion
+          (Septentrio RTK, Ouster, Livox, Hesai), custom Nav2 plugins, GPS waypoint following, swarm systems,
+          Isaac Sim, and DDS tuning.
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-role">SLAM Engineer — GPS-Denied Drone Inspection</div>
+        <div class="tl-meta">SafeSight · Contract</div>
+        <div class="tl-desc">
+          Modular LiDAR-inertial odometry device (Ouster OS1-128 + VectorNav VN-310) feeding real-time external
+          VIO to PX4 for position-hold underground. Shipped FAST-LIO2 &amp; Point-LIO backends with Fast DDS SHM tuning.
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-role">Computer Vision Engineer — Mobile Mapping</div>
+        <div class="tl-meta">JAWESO · 6-month engagement</div>
+        <div class="tl-desc">
+          Integrated 134 MP panoramic cameras, RTK-GNSS, LiDAR, and IMU into a mapping pipeline achieving
+          &lt;10 cm absolute accuracy for digital-twin generation and infrastructure inspection.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ===== WORK / PROJECTS ===== -->
+<section id="work">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Selected Work</div>
+      <h2>Projects</h2>
+      <p>A selection of perception, SLAM, and autonomy systems I've designed and shipped. Click any card for the full technical write-up.</p>
+    </div>
+    <div class="proj-grid">
+
+      <a href="project1.html" class="proj-card reveal">
+        <div class="proj-num">01</div>
+        <div class="proj-domain">3D Reconstruction · Dental Geometry</div>
+        <div class="proj-title">Automated Dental Shell Generation Pipeline</div>
+        <div class="proj-desc">End-to-end pipeline converting raw intraoral scans into watertight multi-thickness shells using SDF offset surfaces, 360° raycasting, and Poisson reconstruction.</div>
+        <div class="proj-tags"><span class="ptag hl">Intraoral Scans</span><span class="ptag hl">Surface Recon</span><span class="ptag">Open3D</span><span class="ptag">libigl</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+      <a href="project2.html" class="proj-card reveal">
+        <div class="proj-num">02</div>
+        <div class="proj-domain">Mobile Mapping · Sensor Fusion</div>
+        <div class="proj-title">High-Precision Mobile Mapping &amp; Localization</div>
+        <div class="proj-desc">6-month engagement integrating 134 MP panoramic cameras, RTK-GNSS, LiDAR, and IMU into a mapping pipeline achieving &lt;10 cm accuracy for digital twins.</div>
+        <div class="proj-tags"><span class="ptag hl">Sensor Fusion</span><span class="ptag hl">Localization</span><span class="ptag">ROS 2</span><span class="ptag">RTK-GNSS</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+      <a href="project3.html" class="proj-card reveal">
+        <div class="proj-num">03</div>
+        <div class="proj-domain">Real-Time Vision · Industrial Robotics</div>
+        <div class="proj-title">Vision-Based Seam Tracking for Robotic Welding</div>
+        <div class="proj-desc">Closed-loop perception detecting and tracking welding seams in real time, correcting robot trajectory under glare, arc light, and part tolerances.</div>
+        <div class="proj-tags"><span class="ptag hl">Real-Time Vision</span><span class="ptag hl">Closed-Loop</span><span class="ptag">Hand-Eye Calib</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+      <a href="project4.html" class="proj-card reveal">
+        <div class="proj-num">04</div>
+        <div class="proj-domain">3D Vision · Collaborative Robotics</div>
+        <div class="proj-title">Collaborative Robotic Assembly Using 3D Vision</div>
+        <div class="proj-desc">CAD-driven assembly using dual RGB-D cameras for 6-DOF pose estimation, enabling product changeover without reprogramming alongside human workers.</div>
+        <div class="proj-tags"><span class="ptag hl">Pose Estimation</span><span class="ptag hl">CAD Registration</span><span class="ptag">RealSense</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+      <a href="project5.html" class="proj-card reveal">
+        <div class="proj-num">05</div>
+        <div class="proj-domain">Healthcare Robotics · Full-Stack</div>
+        <div class="proj-title">Healthcare Robotics System (Full-Stack)</div>
+        <div class="proj-desc">Nursing-assist robot: hoverboard base with ros2_control, Nav2 navigation, xArm7 + Inspire Hand manipulation via MoveIt 2, Leap Motion teleop, and Qt mission UI.</div>
+        <div class="proj-tags"><span class="ptag hl">ROS 2 Control</span><span class="ptag hl">Nav2</span><span class="ptag hl">MoveIt 2</span><span class="ptag">xArm7</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+      <a href="project6.html" class="proj-card reveal">
+        <div class="proj-num">06</div>
+        <div class="proj-domain">LiDAR-Inertial SLAM · GPS-Denied Flight</div>
+        <div class="proj-title">SafeSight: GPS-Denied Drone Inspection</div>
+        <div class="proj-desc">Modular LIO device (Ouster OS1-128 + VN-310) supplying real-time external VIO to PX4 for position-hold underground. FAST-LIO2 &amp; Point-LIO with Fast DDS SHM tuning.</div>
+        <div class="proj-tags"><span class="ptag hl">FAST-LIO2</span><span class="ptag hl">PX4 EKF2</span><span class="ptag">Ouster OS1-128</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+      <a href="project7.html" class="proj-card reveal">
+        <div class="proj-num">07</div>
+        <div class="proj-domain">Outdoor Robotics · Navigation</div>
+        <div class="proj-title">Outdoor Robotics Platform Engineering</div>
+        <div class="proj-desc">Full nav &amp; localization stack for Clearpath Jackal/Panther fleets: multi-sensor fusion (Septentrio RTK, Ouster, Livox, Hesai), Nav2 custom plugins, swarm, DDS tuning.</div>
+        <div class="proj-tags"><span class="ptag hl">Outdoor Nav</span><span class="ptag hl">Nav2 Plugins</span><span class="ptag">Septentrio RTK</span><span class="ptag">Isaac Sim</span></div>
+        <span class="proj-link">View project <span class="arw">→</span></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills" class="alt">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Toolbox</div>
+      <h2>Skills &amp; technologies</h2>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-col reveal">
+        <h3><span class="ic">◎</span>SLAM &amp; Perception</h3>
+        <div class="skill-list">
+          <span class="skill">FAST-LIO2</span><span class="skill">Point-LIO</span><span class="skill">LIO-SAM</span>
+          <span class="skill">Visual Odometry</span><span class="skill">Sensor Fusion</span><span class="skill">EKF / UKF</span>
+          <span class="skill">Point Cloud Reg.</span><span class="skill">Open3D</span><span class="skill">PCL</span>
+        </div>
+      </div>
+      <div class="skill-col reveal">
+        <h3><span class="ic">⬡</span>Robotics &amp; Autonomy</h3>
+        <div class="skill-list">
+          <span class="skill">ROS 2</span><span class="skill">Nav2</span><span class="skill">MoveIt 2</span>
+          <span class="skill">ros2_control</span><span class="skill">PX4</span><span class="skill">MAVLink</span>
+          <span class="skill">Fast DDS</span><span class="skill">micro-ROS</span><span class="skill">Isaac Sim</span>
+        </div>
+      </div>
+      <div class="skill-col reveal">
+        <h3><span class="ic">⌘</span>Engineering</h3>
+        <div class="skill-list">
+          <span class="skill">C++</span><span class="skill">Python</span><span class="skill">CUDA</span>
+          <span class="skill">OpenCV</span><span class="skill">libigl</span><span class="skill">Docker</span>
+          <span class="skill">Linux</span><span class="skill">Qt</span><span class="skill">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="contact-card reveal">
+      <h2>Let's build something that works in the field.</h2>
+      <p>Open to SLAM, computer-vision, and robotics-autonomy engagements. The fastest way to reach me is email.</p>
+      <div class="contact-actions">
+        <a href="mailto:abdoupwork1999@gmail.com" class="btn btn-light">✉ Email me</a>
+        <a href="https://github.com/abdalrhmangamal12" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+        <!-- Add your LinkedIn: <a href="https://linkedin.com/in/YOUR-HANDLE" class="btn btn-outline">LinkedIn</a> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="year">2026</span> Abdalrhman Gamal · Senior SLAM &amp; Computer Vision Engineer · Built with HTML/CSS, hosted on <a href="https://github.com/abdalrhmangamal12">GitHub Pages</a>
+</footer>
+
+<script>
+// sticky nav shadow
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>12),{passive:true});
+// mobile menu
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>l.classList.toggle('open'));
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+// reveal on scroll
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 </body>
 </html>
