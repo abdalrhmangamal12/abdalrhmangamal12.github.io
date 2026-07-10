@@ -144,6 +144,17 @@ section{padding:96px 0}
 .tl-meta{font-size:13.5px;color:var(--accent);font-weight:600;margin:3px 0 10px}
 .tl-desc{color:var(--text-muted);font-size:15px}
 
+/* ---------- EDUCATION ---------- */
+.edu-card{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:18px;padding:32px 34px;box-shadow:var(--shadow-sm)}
+.edu-deg{font-size:21px;font-weight:700;letter-spacing:-.3px}
+.edu-school{color:var(--accent);font-weight:600;font-size:14.5px;margin:6px 0 14px}
+.edu-proj{color:var(--text-muted);font-size:15px;max-width:560px}
+.edu-proj strong{color:var(--text);font-weight:600}
+.edu-side{display:flex;gap:14px;align-items:flex-start}
+.edu-badge{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:12px 18px;text-align:center;min-width:96px}
+.edu-badge .k{display:block;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted)}
+.edu-badge .v{display:block;font-size:18px;font-weight:800;color:var(--accent);margin-top:4px}
+
 /* ---------- PROJECTS ---------- */
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .proj-card{
@@ -261,7 +272,7 @@ footer a{color:var(--accent);font-weight:600}
         <img src="images/photo.jpeg" alt="Abdalrhman Gamal — SLAM & Computer Vision Engineer">
       </div>
       <div class="portrait-badge">
-        <div class="n">5+ yrs</div>
+        <div class="n">2+ yrs</div>
         <div class="l">Robotics &amp; CV</div>
       </div>
     </div>
@@ -312,29 +323,55 @@ footer a{color:var(--accent);font-weight:600}
     </div>
     <div class="timeline">
       <div class="tl-item reveal">
-        <div class="tl-role">Robotics Engineer — Outdoor Autonomy</div>
-        <div class="tl-meta">Wakeb Data · Full-time</div>
+        <div class="tl-role">Robotics Software Engineer</div>
+        <div class="tl-meta">Wakeb Data · Full-time · Cairo, Egypt · Jan 2025 – Present</div>
         <div class="tl-desc">
-          Full navigation &amp; localization stack for Clearpath Jackal/Panther fleets: multi-sensor fusion
-          (Septentrio RTK, Ouster, Livox, Hesai), custom Nav2 plugins, GPS waypoint following, swarm systems,
-          Isaac Sim, and DDS tuning.
+          Autonomous navigation &amp; localization for mobile robots: SLAM and sensor fusion for reliable
+          indoor/outdoor and GPS-denied operation, high-accuracy RTK-GPS localization, custom Nav2 and Mesh
+          Navigation (MeshNav) plugins for path planning and terrain adaptation, EKF fusion of GPS/IMU/encoders,
+          and cloud integration over MQTT for industrial and logistics deployments.
         </div>
       </div>
       <div class="tl-item reveal">
-        <div class="tl-role">SLAM Engineer — GPS-Denied Drone Inspection</div>
-        <div class="tl-meta">SafeSight · Contract</div>
+        <div class="tl-role">Freelance Robotics &amp; Computer Vision Engineer</div>
+        <div class="tl-meta">Upwork · Remote · Jan 2023 – Present</div>
         <div class="tl-desc">
-          Modular LiDAR-inertial odometry device (Ouster OS1-128 + VectorNav VN-310) feeding real-time external
-          VIO to PX4 for position-hold underground. Shipped FAST-LIO2 &amp; Point-LIO backends with Fast DDS SHM tuning.
+          Delivered SLAM &amp; visual-odometry mapping (Cartographer, SLAM Toolbox, GMapping), custom Nav2 plugins
+          (Pure Pursuit with a ZeroCBF filter), RealSense/ZED 3D perception, YOLO/SSD detection with OpenCV
+          calibration, and photogrammetry / point-cloud processing (PCL) — across drone, service, and industrial robots.
         </div>
       </div>
       <div class="tl-item reveal">
-        <div class="tl-role">Computer Vision Engineer — Mobile Mapping</div>
-        <div class="tl-meta">JAWESO · 6-month engagement</div>
+        <div class="tl-role">Computer Vision Engineer</div>
+        <div class="tl-meta">OXO Technology · Part-time · Madrid, Spain (Remote) · Feb 2023 – Present</div>
         <div class="tl-desc">
-          Integrated 134 MP panoramic cameras, RTK-GNSS, LiDAR, and IMU into a mapping pipeline achieving
-          &lt;10 cm absolute accuracy for digital-twin generation and infrastructure inspection.
+          Advanced detection and stereo-vision algorithms for medical applications — point-cloud generation and
+          processing, color-detection to improve diagnostic accuracy, and 3D spatial analysis with PCL and Open3D.
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EDUCATION ===== -->
+<section id="education">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Education</div>
+      <h2>Academic background</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-main">
+        <div class="edu-deg">B.Sc. Mechatronics Engineering</div>
+        <div class="edu-school">Faculty of Engineering, Ain Shams University — Cairo, Egypt</div>
+        <div class="edu-proj">
+          Graduation Project: <strong>Autonomous Collaborative Assembly Robot using a serial manipulator (ABB IRB 120)</strong> — Grade: A+.
+          Computer-vision part detection, safe human–robot interaction, and precise pick-and-place control.
+        </div>
+      </div>
+      <div class="edu-side">
+        <div class="edu-badge"><span class="k">Years</span><span class="v">2018–2023</span></div>
+        <div class="edu-badge"><span class="k">GPA</span><span class="v">3.2</span></div>
       </div>
     </div>
   </div>
