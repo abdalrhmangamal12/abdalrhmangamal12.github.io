@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Localization for Outdoor UGVs — EKF Multi-Sensor Fusion — Abdalrhman Gamal</title>
+<meta name="description" content="Robust 3D localization for Clearpath Jackal & Panther UGVs: dual-EKF fusion of RTK-GNSS, 9-DOF IMU, wheel odometry, and RealSense visual odometry. <1 cm median APE over a ~2 km field run.">
+<meta name="theme-color" content="#5b3fa0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--bg-alt:#f6f5fa;--border:#e6e3ef;--text:#1c1b22;--text-muted:#6a6780;
+  --accent:#5b3fa0;--accent-2:#7c5cd0;--accent-soft:#efeafc;
+  --shadow:0 12px 40px -12px rgba(46,26,110,.18);--shadow-sm:0 4px 18px -8px rgba(46,26,110,.18);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:'SFMono-Regular',Consolas,'Liberation Mono',monospace;--maxw:900px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);color:var(--accent);padding:2px 6px;border-radius:5px}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+.pnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+.pnav-inner{max-width:var(--maxw);margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.back{font-size:14px;font-weight:600;color:var(--text-muted);padding:8px 14px;border-radius:9px;transition:background .18s,color .18s}
+.back:hover{background:var(--bg-alt);color:var(--accent)}
+
+.phero{padding:64px 0 36px;position:relative}
+.phero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 60% at 85% 0%,rgba(124,92,208,.14),transparent 60%)}
+.eyebrow{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.phero h1{font-size:clamp(28px,4.6vw,44px);line-height:1.14;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+.phero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:18px}
+.phero-sub{font-size:17px;color:var(--text-muted);max-width:760px;margin-bottom:22px}
+.phero-sub strong{color:var(--text);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tag{font-size:12px;font-weight:500;padding:5px 12px;border-radius:7px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-muted)}
+.tag.hl{background:var(--accent-soft);border-color:#d9cef7;color:var(--accent)}
+
+section{padding:40px 0}
+.section-label{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+section h2{font-size:clamp(23px,3.4vw,30px);font-weight:800;letter-spacing:-.6px;line-height:1.2;margin-bottom:16px}
+section p{color:var(--text-muted);margin-bottom:16px;max-width:760px}
+section p strong{color:var(--text);font-weight:600}
+
+figure{margin:20px 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm);background:#fff}
+figure img{width:100%;height:auto;display:block}
+figure figcaption{font-size:13px;color:var(--text-muted);padding:12px 18px;background:var(--bg-alt);border-top:1px solid var(--border)}
+
+.video-wrap{aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);background:#000;margin:20px 0}
+.video-wrap iframe{width:100%;height:100%;border:0;display:block}
+
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:6px 0 18px}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 14px;text-align:center;box-shadow:var(--shadow-sm)}
+.metric-val{font-size:23px;font-weight:800;color:var(--accent);letter-spacing:-.5px;line-height:1.1}
+.metric-label{font-size:12px;color:var(--text-muted);margin-top:8px;font-weight:500}
+
+.flist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:6px 0 8px;max-width:780px}
+.flist li{position:relative;padding-left:20px;color:var(--text-muted);font-size:15px}
+.flist li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.flist strong{color:var(--text);font-weight:600}
+
+.pfoot{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text-muted);font-size:13.5px;margin-top:20px}
+.pfoot a{color:var(--accent);font-weight:600}
+
+@media(max-width:720px){.metrics{grid-template-columns:repeat(2,1fr)}section{padding:32px 0}.phero{padding:44px 0 28px}}
+</style>
+</head>
+<body>
+
+<nav class="pnav">
+  <div class="pnav-inner">
+    <a href="../../index.html" class="brand"><span class="dot"></span>Abdalrhman Gamal</a>
+    <a href="../../index.html#work" class="back">← All projects</a>
+  </div>
+</nav>
+
+<header class="phero">
+  <div class="container">
+    <span class="eyebrow">Sensor Fusion · Outdoor Localization</span>
+    <h1>3D Localization for Outdoor UGVs — <span class="grad">EKF Multi-Sensor Fusion</span></h1>
+    <div class="role">Robotics Software Engineer</div>
+    <p class="phero-sub">
+      A robust 3D localization system for Clearpath <strong>Jackal and Panther</strong> UGVs in complex
+      outdoor terrain — fusing RTK-GNSS, a 9-DOF IMU, wheel odometry, and RealSense visual odometry through
+      a <strong>dual-EKF</strong> architecture, tuned to bridge GNSS degradation from multipath and outages.
+    </p>
+    <div class="tags">
+      <span class="tag hl">Sensor Fusion</span>
+      <span class="tag hl">Localization</span>
+      <span class="tag hl">Dual-EKF</span>
+      <span class="tag">RTK-GNSS</span>
+      <span class="tag">9-DOF IMU</span>
+      <span class="tag">RealSense VO</span>
+      <span class="tag">ROS</span>
+      <span class="tag">evo</span>
+    </div>
+  </div>
+</header>
+
+<!-- COVER -->
+<div class="container">
+  <figure>
+    <img src="panther.jpg" alt="Clearpath Panther UGV operating in rough outdoor terrain">
+    <figcaption>The Clearpath Panther UGV on rough terrain — a real field platform for the localization stack.</figcaption>
+  </figure>
+</div>
+
+<!-- METRICS -->
+<section>
+  <div class="container">
+    <div class="metrics">
+      <div class="metric-card"><div class="metric-val">&lt;1 cm</div><div class="metric-label">Median absolute pose error</div></div>
+      <div class="metric-card"><div class="metric-val">~2 km</div><div class="metric-label">Distance travelled</div></div>
+      <div class="metric-card"><div class="metric-val">~11 min</div><div class="metric-label">Continuous field run</div></div>
+      <div class="metric-card"><div class="metric-val">4 → 1</div><div class="metric-label">Sensors → dual-EKF state</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section>
+  <div class="container">
+    <div class="section-label">Demonstration</div>
+    <h2>Localizing through the field</h2>
+    <div class="video-wrap">
+      <iframe src="https://www.youtube.com/embed/zWprt7HiSE0" title="3D localization for outdoor UGVs — field run" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section>
+  <div class="container">
+    <div class="section-label">Overview</div>
+    <h2>A localization estimate you can trust off-road</h2>
+    <p>
+      Outdoor UGVs live and die by their position estimate — but RTK-GNSS alone breaks down under
+      <strong>multipath, canopy, and outages</strong>, and a single sensor can't cover every failure mode.
+      I built a fused localization stack that stays smooth and accurate through the exact conditions where
+      raw GPS falls apart.
+    </p>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <h2>Four sources, a dual-EKF estimate</h2>
+    <ul class="flist">
+      <li><strong>RTK-GNSS</strong> — centimetre-level global position, the absolute anchor when the sky is clear.</li>
+      <li><strong>9-DOF IMU</strong> — high-rate orientation and motion to carry the estimate between fixes.</li>
+      <li><strong>Wheel odometry</strong> — dead-reckoning for continuity through GNSS dropouts.</li>
+      <li><strong>RealSense visual odometry</strong> — vision-based motion to constrain drift where wheels slip.</li>
+      <li><strong>Dual-EKF state estimation</strong> — local and global filters, carefully tuned to bridge GNSS degradation from multipath and outages without letting glitches corrupt the fused state.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EVALUATION -->
+<section>
+  <div class="container">
+    <div class="section-label">Evaluation</div>
+    <h2>Benchmarked against RTK with evo</h2>
+    <p>
+      I evaluated the fused estimate rigorously against the RTK reference using <strong>evo</strong>, over a
+      <strong>~11-minute field run covering ~2 km</strong>. The result: a <strong>median absolute pose error
+      under 1 cm</strong>, with the fused estimate staying smooth through GPS glitches the raw signal couldn't
+      survive.
+    </p>
+    <figure>
+      <img src="result3.jpg" alt="RTK-GPS vs fused odometry XY trajectory — the two overlap">
+      <figcaption>RTK-GPS vs. fused-odometry XY trajectory — the fused estimate tracks the RTK reference across the full loop.</figcaption>
+    </figure>
+    <figure>
+      <img src="result1.png" alt="Absolute pose error over time — fused error stays low while raw GPS spikes">
+      <figcaption>Absolute pose error over the run: median/mean stay low (shaded band) while raw GNSS spikes to metres — the fusion rejects the glitches.</figcaption>
+    </figure>
+    <figure>
+      <img src="result2.png" alt="3D trajectory coloured by absolute pose error">
+      <figcaption>3D trajectory coloured by absolute pose error against the reference path.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section>
+  <div class="container">
+    <div class="section-label">Result</div>
+    <h2>Deployed on real field platforms</h2>
+    <p>
+      The stack runs on <strong>real Clearpath Jackal and Panther platforms</strong> in the field — delivering
+      a localization estimate that holds sub-centimetre agreement with RTK while remaining robust to the GNSS
+      failures that make outdoor autonomy hard.
+    </p>
+  </div>
+</section>
+
+<footer class="pfoot">
+  <div class="container">← <a href="../../index.html#work">Back to all projects</a> · Abdalrhman Gamal — Robotics Software Engineer</div>
+</footer>
+
+</body>
+</html>
