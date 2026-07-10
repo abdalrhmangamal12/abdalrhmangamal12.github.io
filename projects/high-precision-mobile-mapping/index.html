@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>High-Precision Mobile Mapping &amp; Localization System — Abdalrhman Gamal</title>
+<meta name="description" content="SLAM & sensor-fusion pipeline behind JAWESO's Panora mobile mapping systems — under 10 cm absolute accuracy fusing dual LiDAR, dual RTK-GNSS, IMU, visual SLAM, and 200 MP panoramic imaging on ROS 2.">
+<meta name="theme-color" content="#5b3fa0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--bg-alt:#f6f5fa;--border:#e6e3ef;--text:#1c1b22;--text-muted:#6a6780;
+  --accent:#5b3fa0;--accent-2:#7c5cd0;--accent-soft:#efeafc;
+  --shadow:0 12px 40px -12px rgba(46,26,110,.18);--shadow-sm:0 4px 18px -8px rgba(46,26,110,.18);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:'SFMono-Regular',Consolas,'Liberation Mono',monospace;--maxw:900px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);color:var(--accent);padding:2px 6px;border-radius:5px}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+.pnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--border)}
+.pnav-inner{max-width:var(--maxw);margin:0 auto;padding:15px 28px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:700;font-size:15px;display:flex;align-items:center;gap:9px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.back{font-size:14px;font-weight:600;color:var(--text-muted);padding:8px 14px;border-radius:9px;transition:background .18s,color .18s}
+.back:hover{background:var(--bg-alt);color:var(--accent)}
+
+.phero{padding:64px 0 36px;position:relative}
+.phero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 60% at 85% 0%,rgba(124,92,208,.14),transparent 60%)}
+.eyebrow{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.phero h1{font-size:clamp(30px,5vw,46px);line-height:1.12;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+.phero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:18px}
+.role .client{color:var(--text-muted);font-weight:500}
+.phero-sub{font-size:17px;color:var(--text-muted);max-width:760px;margin-bottom:22px}
+.phero-sub strong{color:var(--text);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.tag{font-size:12px;font-weight:500;padding:5px 12px;border-radius:7px;background:var(--bg-alt);border:1px solid var(--border);color:var(--text-muted)}
+.tag.hl{background:var(--accent-soft);border-color:#d9cef7;color:var(--accent)}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14.5px;padding:12px 22px;border-radius:10px;transition:transform .18s,box-shadow .18s,background .18s,border-color .18s}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:var(--shadow-sm)}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-ghost{background:#fff;color:var(--text);border:1.5px solid var(--border)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+section{padding:40px 0}
+.section-label{font-size:11.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+section h2{font-size:clamp(23px,3.4vw,30px);font-weight:800;letter-spacing:-.6px;line-height:1.2;margin-bottom:16px}
+section p{color:var(--text-muted);margin-bottom:16px;max-width:760px}
+section p strong{color:var(--text);font-weight:600}
+
+figure{margin:20px 0;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-sm);background:#fff}
+figure img{width:100%;height:auto}
+figure figcaption{font-size:13px;color:var(--text-muted);padding:12px 18px;background:var(--bg-alt);border-top:1px solid var(--border)}
+.img-ph{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:linear-gradient(150deg,var(--accent-soft),#fff);color:var(--text-muted);font-size:14px;font-weight:500}
+.img-ph code{background:#fff;border:1px solid var(--border)}
+
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:6px 0 18px}
+.metric-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 16px;text-align:center;box-shadow:var(--shadow-sm)}
+.metric-val{font-size:25px;font-weight:800;color:var(--accent);letter-spacing:-.5px;line-height:1}
+.metric-label{font-size:12px;color:var(--text-muted);margin-top:8px;font-weight:500}
+
+.flist{list-style:none;display:flex;flex-direction:column;gap:12px;margin:6px 0 8px;max-width:780px}
+.flist li{position:relative;padding-left:20px;color:var(--text-muted);font-size:15px}
+.flist li::before{content:"";position:absolute;left:0;top:10px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.flist strong{color:var(--text);font-weight:600}
+
+.ext-card{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 22px;box-shadow:var(--shadow-sm);transition:transform .18s,box-shadow .18s,border-color .18s;max-width:560px}
+.ext-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--accent)}
+.ext-icon{width:44px;height:44px;border-radius:11px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ext-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
+.ext-title{font-size:16px;font-weight:700}
+.ext-url{font-size:13px;color:var(--text-muted)}
+.ext-arrow{margin-left:auto;color:var(--accent);font-size:20px}
+
+.pfoot{border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text-muted);font-size:13.5px;margin-top:20px}
+.pfoot a{color:var(--accent);font-weight:600}
+
+@media(max-width:720px){.metrics{grid-template-columns:repeat(2,1fr)}section{padding:32px 0}.phero{padding:44px 0 28px}}
+</style>
+</head>
+<body>
+
+<nav class="pnav">
+  <div class="pnav-inner">
+    <a href="../../index.html" class="brand"><span class="dot"></span>Abdalrhman Gamal</a>
+    <a href="../../index.html#work" class="back">← All projects</a>
+  </div>
+</nav>
+
+<header class="phero">
+  <div class="container">
+    <span class="eyebrow">Mobile Mapping · Sensor Fusion</span>
+    <h1>High-Precision Mobile Mapping &amp; <span class="grad">Localization System</span></h1>
+    <div class="role">SLAM &amp; Sensor Fusion Engineer <span class="client">· JAWESO — Panora / Panora PL</span></div>
+    <p class="phero-sub">
+      Built the mapping and localization pipeline behind JAWESO's mobile mapping systems for
+      <strong>digital-twin generation and infrastructure inspection</strong>, achieving
+      <strong>under 10 cm absolute positional accuracy</strong> — fusing dual LiDAR, dual RTK-GNSS,
+      IMU, visual SLAM, and wheel odometry with up-to-200 MP-class panoramic imaging on ROS 2.
+    </p>
+    <div class="tags">
+      <span class="tag hl">Sensor Fusion</span>
+      <span class="tag hl">Localization</span>
+      <span class="tag hl">LiDAR</span>
+      <span class="tag">ROS 2</span>
+      <span class="tag">Visual SLAM</span>
+      <span class="tag">RTK-GNSS</span>
+      <span class="tag">Photogrammetry</span>
+    </div>
+    <div class="hero-actions">
+      <a href="https://www.jaweso.com/" target="_blank" rel="noopener" class="btn btn-primary">Visit JAWESO ↗</a>
+    </div>
+  </div>
+</header>
+
+<!-- COVER IMAGE -->
+<div class="container">
+  <figure>
+    <div class="img-ph">Add cover image → <code>img/cover.jpg</code><br>(mapping vehicle / point cloud / corridor)</div>
+  </figure>
+</div>
+
+<!-- METRICS -->
+<section>
+  <div class="container">
+    <div class="metrics">
+      <div class="metric-card"><div class="metric-val">&lt;10 cm</div><div class="metric-label">Absolute accuracy</div></div>
+      <div class="metric-card"><div class="metric-val">2×640k</div><div class="metric-label">LiDAR pts / sec</div></div>
+      <div class="metric-card"><div class="metric-val">200 MP</div><div class="metric-label">Panoramic imaging</div></div>
+      <div class="metric-card"><div class="metric-val">Dual</div><div class="metric-label">RTK-GNSS receivers</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section>
+  <div class="container">
+    <div class="section-label">Overview</div>
+    <h2>Survey-grade mapping from a moving platform</h2>
+    <p>
+      JAWESO's <strong>Panora</strong> and <strong>Panora PL</strong> product line captures the world
+      as it drives — turning raw sensor streams into georeferenced 3D reality. My work was the
+      <strong>mapping and localization pipeline</strong> at the core of the system: estimating a precise,
+      globally-referenced trajectory and fusing every sensor into a single consistent point cloud.
+    </p>
+    <p>
+      The target was demanding — <strong>under 10 cm absolute positional accuracy</strong> — because the
+      output feeds digital-twin generation and infrastructure inspection, where centimetres decide whether
+      a measurement is trustworthy.
+    </p>
+  </div>
+</section>
+
+<!-- FUSION STACK -->
+<section>
+  <div class="container">
+    <div class="section-label">The Fusion Stack</div>
+    <h2>Every sensor, one consistent state</h2>
+    <ul class="flist">
+      <li><strong>Dual LiDAR</strong> — 2 × 640k pts/sec at 1–2 cm range accuracy for dense, high-fidelity geometry.</li>
+      <li><strong>Dual RTK-GNSS</strong> — globally-referenced positioning and heading for absolute accuracy.</li>
+      <li><strong>IMU + wheel odometry</strong> — high-rate motion and dead-reckoning through GNSS gaps.</li>
+      <li><strong>Visual SLAM</strong> — visual odometry to constrain drift and reinforce localization.</li>
+      <li><strong>Panoramic imaging</strong> — up-to-200 MP-class multi-camera capture for colourized, inspectable maps.</li>
+    </ul>
+    <p>
+      The hard part wasn't any single sensor — it was making them agree. I handled <strong>time
+      synchronization</strong> across all streams and <strong>multi-camera calibration</strong>, integrated
+      on <strong>ROS 2</strong>, so LiDAR, GNSS, IMU, and imagery share a common clock and frame.
+    </p>
+  </div>
+</section>
+
+<!-- PIPELINE DIAGRAM -->
+<div class="container">
+  <figure>
+    <div class="img-ph">Add architecture / pipeline diagram → <code>img/pipeline.png</code></div>
+  </figure>
+</div>
+
+<!-- DELIVERABLES -->
+<section>
+  <div class="container">
+    <div class="section-label">Deliverables &amp; Validation</div>
+    <h2>Georeferenced point clouds, validated in the field</h2>
+    <ul class="flist">
+      <li><strong>Georeferenced point clouds</strong> ready for digital-twin generation and infrastructure inspection.</li>
+      <li><strong>Sub-10 cm absolute accuracy</strong> validated on real corridors — not just on the bench.</li>
+      <li><strong>Field validation on urban and railway corridors in Germany</strong>, across varied GNSS conditions.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- RESULT IMAGE -->
+<div class="container">
+  <figure>
+    <div class="img-ph">Add result image → <code>img/result.jpg</code><br>(sample point cloud / railway or urban corridor)</div>
+  </figure>
+</div>
+
+<!-- REFERENCE -->
+<section>
+  <div class="container">
+    <div class="section-label">Reference</div>
+    <h2>Product line</h2>
+    <a href="https://www.jaweso.com/" target="_blank" rel="noopener" class="ext-card">
+      <div class="ext-icon">🌐</div>
+      <div>
+        <div class="ext-label">Company &amp; Product</div>
+        <div class="ext-title">JAWESO — Panora Mobile Mapping</div>
+        <div class="ext-url">jaweso.com</div>
+      </div>
+      <div class="ext-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="pfoot">
+  <div class="container">← <a href="../../index.html#work">Back to all projects</a> · Abdalrhman Gamal — Robotics Software Engineer</div>
+</footer>
+
+</body>
+</html>
