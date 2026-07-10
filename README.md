@@ -3,7 +3,7 @@
 Senior SLAM &amp; Computer Vision Engineer. Selected projects in 3D reconstruction,
 sensor fusion, real-time localization, and mapping systems.
 
-**🔗 Live site:** https://abdalrhmangamal12.github.io/Portfolio/
+**🔗 Live site:** https://abdalrhmangamal12.github.io/
 
 ## Projects
 
