@@ -146,6 +146,10 @@ section{padding:96px 0}
 .tl-meta a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;transition:opacity .18s}
 .tl-meta a:hover{opacity:.7}
 .tl-desc{color:var(--text-muted);font-size:15px}
+.tl-list{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:9px}
+.tl-list li{position:relative;padding-left:18px;color:var(--text-muted);font-size:14.5px;line-height:1.6}
+.tl-list li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.tl-list strong{color:var(--text);font-weight:600}
 
 /* ---------- EDUCATION ---------- */
 .edu-card{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:18px;padding:32px 34px;box-shadow:var(--shadow-sm)}
@@ -341,12 +345,17 @@ footer a{color:var(--accent);font-weight:600}
         <div class="tl-role">Robotics Software Engineer</div>
         <div class="tl-meta">Wakeb Data · Full-time · Cairo, Egypt · Jan 2025 – Present</div>
         <div class="tl-desc">
-          Autonomy for the Clearpath <strong>Panther</strong> and custom industrial platforms. Integrated
-          industrial-grade sensors — <strong>Fixposition</strong> GPS, <strong>Septentrio AntaRx-Si3</strong>,
-          and tactical-grade IMUs — alongside <strong>ZED</strong> and <strong>Intel RealSense</strong> depth
-          cameras, deployed on <strong>NVIDIA Jetson</strong>. Built SLAM, sensor fusion, RTK localization, and
-          custom Nav2 / Mesh Navigation (MeshNav) plugins in modern C++.
+          Leading autonomy and integration for industrial-grade UGVs — Clearpath <strong>Panther</strong>
+          and <strong>Jackal</strong>, and <strong>Robotnik</strong> platforms — for real-world industrial
+          and logistics deployments.
         </div>
+        <ul class="tl-list">
+          <li><strong>Localization &amp; sensor fusion —</strong> robust localization fusing wheel odometry, multiple tactical-grade IMUs, and RTK-GNSS (Fixposition, Septentrio AntaRx-Si3) for high-accuracy outdoor navigation, alongside ZED and Intel RealSense depth cameras.</li>
+          <li><strong>Autonomous navigation —</strong> SLAM- and fusion-based navigation across indoor, outdoor, and GPS-denied environments; custom ROS 2 plugins on the Mesh Navigation Stack (MeshNav) for path planning, terrain adaptation, and non-grid maps.</li>
+          <li><strong>Cloud &amp; fleet —</strong> connected robots to cloud platforms over MQTT for scalable data exchange, monitoring, and telemetry.</li>
+          <li><strong>Simulation —</strong> developed and validated in NVIDIA Isaac Sim and Gazebo ahead of field deployment.</li>
+          <li><strong>Deployment &amp; tooling —</strong> industrial-grade deployment on NVIDIA Jetson with Docker / Docker Compose, Linux, and the ROS 2 + Fast DDS ecosystem, working closely with hardware and software teams.</li>
+        </ul>
       </div>
       <div class="tl-item reveal">
         <div class="tl-role">Robotics Software Engineer — Drone Autonomy</div>
