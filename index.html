@@ -187,13 +187,12 @@ section{padding:96px 0}
 .proj-card:hover .proj-link .arw{transform:translateX(4px)}
 
 /* ---------- SKILLS ---------- */
-.skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.skill-col{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:var(--shadow-sm)}
-.skill-col h3{font-size:15px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:9px}
-.skill-col h3 .ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px}
-.skill-list{display:flex;flex-wrap:wrap;gap:8px}
-.skill{font-size:13px;font-weight:500;padding:6px 12px;border-radius:8px;background:var(--bg-alt);border:1px solid var(--border);transition:background .18s,color .18s,border-color .18s}
-.skill:hover{background:var(--accent-soft);color:var(--accent);border-color:#d9cef7}
+.skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.skill-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px 20px;text-align:center;box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s,border-color .2s}
+.skill-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:transparent}
+.skill-ic{width:58px;height:58px;margin:0 auto 16px;border-radius:15px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:28px;line-height:1}
+.skill-cat{font-size:14.5px;font-weight:700;letter-spacing:-.2px;margin-bottom:8px}
+.skill-items{font-size:12.5px;color:var(--text-muted);line-height:1.6}
 
 /* ---------- CONTACT ---------- */
 .contact{text-align:center}
@@ -229,7 +228,7 @@ footer a{color:var(--accent);font-weight:600}
   .hero-portrait{order:-1;justify-self:start}
   .about-grid{grid-template-columns:1fr;gap:36px}
   .proj-grid{grid-template-columns:1fr}
-  .skill-groups{grid-template-columns:1fr}
+  .skill-grid{grid-template-columns:repeat(2,1fr)}
   .nav-links{
     position:fixed;top:64px;right:16px;left:16px;flex-direction:column;align-items:stretch;gap:4px;
     background:#fff;border:1px solid var(--border);border-radius:14px;padding:10px;box-shadow:var(--shadow);
@@ -513,30 +512,46 @@ footer a{color:var(--accent);font-weight:600}
       <div class="sec-kicker">Toolbox</div>
       <h2>Skills &amp; technologies</h2>
     </div>
-    <div class="skill-groups">
-      <div class="skill-col reveal">
-        <h3><span class="ic">◎</span>SLAM &amp; Perception</h3>
-        <div class="skill-list">
-          <span class="skill">FAST-LIO2</span><span class="skill">Point-LIO</span><span class="skill">LIO-SAM</span>
-          <span class="skill">Graph SLAM (iSAM2)</span><span class="skill">Visual Odometry</span><span class="skill">Sensor Fusion</span>
-          <span class="skill">EKF / UKF</span><span class="skill">Open3D</span><span class="skill">PCL</span>
-        </div>
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <div class="skill-ic">🧭</div>
+        <div class="skill-cat">SLAM &amp; State Estimation</div>
+        <div class="skill-items">FAST-LIO2 · Point-LIO · LIO-SAM · Graph SLAM (iSAM2) · EKF / UKF</div>
       </div>
-      <div class="skill-col reveal">
-        <h3><span class="ic">⬡</span>Robotics &amp; Autonomy</h3>
-        <div class="skill-list">
-          <span class="skill">ROS 2</span><span class="skill">Nav2</span><span class="skill">MoveIt 2</span>
-          <span class="skill">ros2_control</span><span class="skill">PX4</span><span class="skill">MAVLink</span>
-          <span class="skill">Fast DDS</span><span class="skill">micro-ROS</span><span class="skill">Isaac Sim</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">🛰️</div>
+        <div class="skill-cat">Sensor Fusion &amp; Localization</div>
+        <div class="skill-items">RTK-GNSS · IMU · Wheel Odometry · Visual Odometry</div>
       </div>
-      <div class="skill-col reveal">
-        <h3><span class="ic">⌘</span>Engineering</h3>
-        <div class="skill-list">
-          <span class="skill">Modern C++</span><span class="skill">Concurrency</span><span class="skill">Python</span>
-          <span class="skill">CUDA</span><span class="skill">OpenCV</span><span class="skill">Docker</span>
-          <span class="skill">Linux</span><span class="skill">Qt</span><span class="skill">Git</span>
-        </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">🤖</div>
+        <div class="skill-cat">ROS &amp; Autonomy</div>
+        <div class="skill-items">ROS 2 · Nav2 · MoveIt 2 · ros2_control · MeshNav</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">🚁</div>
+        <div class="skill-cat">Drones &amp; Middleware</div>
+        <div class="skill-items">PX4 · MAVLink · Fast DDS · micro-ROS</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">⚙️</div>
+        <div class="skill-cat">Modern C++</div>
+        <div class="skill-items">C++17 / 20 · Concurrency · Real-Time · CUDA</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">🐍</div>
+        <div class="skill-cat">Languages &amp; Scripting</div>
+        <div class="skill-items">Python · C · Bash · MATLAB</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">👁️</div>
+        <div class="skill-cat">Perception &amp; 3D</div>
+        <div class="skill-items">OpenCV · RealSense · ZED · PCL · Open3D · YOLO</div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-ic">🧪</div>
+        <div class="skill-cat">Simulation &amp; Tools</div>
+        <div class="skill-items">Isaac Sim · Gazebo · Docker · Linux · Git</div>
       </div>
     </div>
   </div>
