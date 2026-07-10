@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 1 — Dental Shell Generation Pipeline</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Abdalrhman's Portfolio</a>
+  <a href="index.html" class="back">← All Projects</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Project 01 &bull; 3D Reconstruction &bull; Dental Geometry Processing</div>
+  <h1>Automated Dental Shell <em>Generation Pipeline</em></h1>
+  <p class="hero-sub">
+    End-to-end Python pipeline that converts raw intraoral scans into watertight, multi-thickness
+    shells (soft / medium / hard) ready for CAD export and 3D printing — fully automated,
+    no manual mesh editing required.
+  </p>
+  <div class="tags">
+    <span class="tag highlight">Intraoral Scans</span>
+    <span class="tag highlight">Surface Reconstruction</span>
+    <span class="tag highlight">Signed Distance Fields</span>
+    <span class="tag">Python</span>
+    <span class="tag">Open3D</span>
+    <span class="tag">libigl</span>
+    <span class="tag">PyMeshFix</span>
+    <span class="tag">Poisson Reconstruction</span>
+    <span class="tag">DBSCAN</span>
+    <span class="tag">Ray Casting</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Problem</div>
+  <h2>From noisy scans to printable shells</h2>
+  <p>
+    Raw intraoral scans contain <strong>flat scanner artefacts</strong>, self-occluding geometry,
+    and non-manifold edges. Clinicians need watertight shells at precise thicknesses
+    (0.4 mm–1.6 mm) for aligner and retainer fabrication — a process that previously required
+    hours of manual mesh editing per case.
+  </p>
+</section>
+
+<section>
+  <div class="section-label">Architecture</div>
+  <h2>5-stage processing pipeline</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">1 — Scan Clean-up</span>
+          <span class="stage-script">enhance_input.py</span>
+        </div>
+        <div class="stage-desc">
+          Remove triangles whose normals are within ±1.9° of any principal axis (flat scanner artefacts).
+          Discard clusters &lt; 5,000 triangles. Run PyMeshFix with <code>joincomp=True</code> for watertight repair.
+        </div>
+        <div class="stage-algo">Axis-aligned face removal → clustering → MeshFix</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">2 — Offset Surface Generation</span>
+          <span class="stage-script">offset.py</span>
+        </div>
+        <div class="stage-desc">
+          Generate iso-surfaces at clinically defined distances using libigl's marching-tetrahedra
+          on a 1000³ grid. A signed-distance filter retains only faces with positive SDF,
+          guaranteeing a purely outer shell.
+        </div>
+        <div class="stage-algo">libigl offset_surface → SDF filter → inner/outer STLs</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">3 — Centre-Band Detection & Trimming</span>
+          <span class="stage-script">center_spheres_raycasting.py</span>
+        </div>
+        <div class="stage-desc">
+          Place a virtual origin inside the arch, fire 360° planar rays every 13°, then
+          seed marker spheres at forward/backward hit gaps. From each sphere, 500k isotropic
+          rays mark and remove occluded triangles. DBSCAN extracts the largest clean cluster.
+        </div>
+        <div class="stage-algo">360° ray-casting → sphere seeding → DBSCAN clustering</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">4 — Ridge Bending (Experimental)</span>
+          <span class="stage-script">creating_ridges.py</span>
+        </div>
+        <div class="stage-desc">
+          Detect multi-band rays (≥5 surface hits), locally displace vertices downward up to
+          0.5 mm to visualise occlusal ridges. Retained for future morphology studies.
+        </div>
+        <div class="stage-algo">Multi-band ray detection → local vertex displacement</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">5 — Watertight Reconstruction</span>
+          <span class="stage-script">poisson.py</span>
+        </div>
+        <div class="stage-desc">
+          Estimate normals (radius 0.3 mm, max 30 neighbours), flip inner normals outward,
+          merge point clouds, and run Poisson reconstruction at depth 10. Low-density
+          triangles (≤ 0.02) are discarded to remove skirts. Output: final watertight STL.
+        </div>
+        <div class="stage-algo">Normal estimation → flip + merge → Poisson depth 10 → density filter</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-label">Performance</div>
+  <h2>Benchmarks</h2>
+  <div class="metrics">
+    <div class="metric-card">
+      <div class="metric-val">~7 min</div>
+      <div class="metric-label">Total per arch</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">≤ 8 GB</div>
+      <div class="metric-label">Peak memory</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">2M+</div>
+      <div class="metric-label">Points in Poisson</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">0.4 mm</div>
+      <div class="metric-label">Min shell thickness</div>
+    </div>
+  </div>
+  <table class="data-table">
+    <thead><tr><th>Stage</th><th>Time / arch</th><th>Peak RAM</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Scan Clean-up</td><td>~40 s</td><td>&lt; 1 GB</td><td>MeshFix single-threaded</td></tr>
+      <tr><td>Offset (1 shell)</td><td>70–90 s</td><td>4–6 GB</td><td>libigl + dense SDF on 1000³ grid</td></tr>
+      <tr><td>Centre-raycast</td><td>2–3 min</td><td>6 GB</td><td>Open3D, GPU recommended</td></tr>
+      <tr><td>Poisson recon</td><td>2 min</td><td>8 GB</td><td>Depth 10, ~2M points</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 13px; color: var(--text-muted); font-style: italic;">
+    Benchmarked on Intel i7-13700, RTX 3060, 32 GB RAM.
+  </p>
+</section>
+
+<section>
+  <div class="section-label">Clinical Parameters</div>
+  <h2>Shell thickness specification</h2>
+  <table class="data-table">
+    <thead><tr><th>Arch</th><th>Layer</th><th>Offset (mm)</th></tr></thead>
+    <tbody>
+      <tr><td>Upper</td><td>Inner (soft)</td><td>0.6</td></tr>
+      <tr><td>Upper</td><td>Outer (hard)</td><td>0.4</td></tr>
+      <tr><td>Lower</td><td>Inner (soft)</td><td>0.6</td></tr>
+      <tr><td>Lower</td><td>Middle</td><td>0.4</td></tr>
+      <tr><td>Lower</td><td>Outer (hard)</td><td>0.6</td></tr>
+    </tbody>
+  </table>
+  <p>All parameters are configurable via <code>config.py</code> without editing algorithm code.</p>
+</section>
+
+<section>
+  <div class="section-label">Challenges & Trade-offs</div>
+  <h2>Known limitations</h2>
+  <p>
+    <strong>Raycasting outliers:</strong> The 360° ray-casting stage can produce false-positive
+    marked triangles on thin enamel (visible as detached clusters). While DBSCAN filters the
+    largest cluster, edge cases in paediatric scans with narrow anatomy can over-trim.
+    Mitigation: tunable <code>gap_threshold_mm</code> and <code>cluster_min_size</code>.
+  </p>
+  <p>
+    <strong>Offset self-intersections:</strong> On tight curvature regions, marching-tet offset
+    can self-intersect. A voxel dilation/erosion fallback is planned.
+  </p>
+</section>
+
+<footer>Abdalrhman — Senior SLAM & Computer Vision Engineer &bull; 2026</footer>
+</body>
+</html>

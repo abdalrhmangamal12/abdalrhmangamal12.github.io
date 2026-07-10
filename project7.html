@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 7 — Outdoor Robotics Platform Engineering (Wakeb Data)</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Abdalrhman's Portfolio</a>
+  <a href="index.html" class="back">← All Projects</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Project 07 &bull; Full-Time Role &bull; Wakeb Data &bull; Outdoor Robotics</div>
+  <h1>Outdoor Robotics Platform <em>Engineering</em></h1>
+  <p class="hero-sub">
+    Robotics Software Engineer at Wakeb Data — building the full navigation, localization,
+    and infrastructure stack for outdoor UGV fleets (Clearpath Jackal & Panther), drone-robot
+    swarm systems, and a cloud telemetry platform. Hands-on with multi-vendor sensor integration,
+    Nav2 plugin development, DDS tuning, and simulation infrastructure.
+  </p>
+  <div class="tags">
+    <span class="tag highlight">Outdoor Navigation</span>
+    <span class="tag highlight">Multi-Sensor Localization</span>
+    <span class="tag highlight">Nav2 Plugin Dev</span>
+    <span class="tag">Clearpath Jackal</span>
+    <span class="tag">Clearpath Panther</span>
+    <span class="tag">Septentrio RTK / INS</span>
+    <span class="tag">Ouster OS1-128</span>
+    <span class="tag">Livox</span>
+    <span class="tag">Hesai</span>
+    <span class="tag">ROS 2 Humble</span>
+    <span class="tag">Fast DDS</span>
+    <span class="tag">Isaac Sim</span>
+    <span class="tag">Gazebo</span>
+    <span class="tag">Docker</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Role</div>
+  <h2>End-to-end robotics software for outdoor fleets</h2>
+  <p>
+    Responsible for the <strong>complete software stack</strong> powering Wakeb Data's outdoor robot
+    fleet: from sensor driver integration and localization algorithm tuning, through Nav2
+    navigation with custom plugins, to simulation environments and cloud telemetry. Work spans
+    UGV platforms, drone integration, and multi-robot swarm coordination.
+  </p>
+</section>
+
+<!-- Sensor Integration -->
+<section>
+  <div class="section-label">Sensors & Platforms</div>
+  <h2>Multi-vendor hardware integration</h2>
+  <table class="data-table">
+    <thead><tr><th>Category</th><th>Hardware</th></tr></thead>
+    <tbody>
+      <tr><td>UGV Platforms</td><td>Clearpath Jackal, Clearpath Panther</td></tr>
+      <tr><td>RTK-GNSS / INS</td><td>Septentrio RTK, Septentrio INS</td></tr>
+      <tr><td>LiDAR</td><td>Ouster OS1-128, Livox, Hesai</td></tr>
+      <tr><td>IMU</td><td>Septentrio INS, Xsens, Microstrain (multi-vendor)</td></tr>
+      <tr><td>Aerial</td><td>Drone platform for swarm integration</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Localization -->
+<section>
+  <div class="section-label">Work Area 1</div>
+  <h2>Multi-sensor localization</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">GPS + IMU + Wheel Odometry Fusion</span>
+        </div>
+        <div class="stage-desc">
+          First-pass localization fusing RTK-GNSS, IMU, and wheel odometry for outdoor
+          position estimation. Tuned fusion parameters and covariance weighting across
+          different sensor vendors and terrain conditions.
+        </div>
+        <div class="stage-algo">RTK + IMU + wheel odom → fused pose → robot_localization / EKF</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">AMCL Tuning & Localization Methods</span>
+        </div>
+        <div class="stage-desc">
+          Extensive tuning of AMCL and other localization algorithms across different
+          environments and sensor configurations. Developed generic approaches applicable
+          to any UGV platform — not one-off configurations.
+        </div>
+        <div class="stage-algo">Map-based localisation → AMCL parameter tuning → cross-platform validation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation -->
+<section>
+  <div class="section-label">Work Area 2</div>
+  <h2>Navigation — Nav2 + custom plugins</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">GPS Waypoint Following</span>
+        </div>
+        <div class="stage-desc">
+          Implemented GPS waypoint following using Nav2 with a custom plugin for outdoor
+          mission execution. Converts GPS coordinates to local frame and feeds Nav2's
+          waypoint follower for autonomous route traversal.
+        </div>
+        <div class="stage-algo">GPS waypoints → local frame conversion → Nav2 waypoint follower</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Generic Navigation Plugins</span>
+        </div>
+        <div class="stage-desc">
+          Building reusable Nav2 plugins for any UGV platform: generic controller tuning,
+          costmap layer configuration, and recovery behaviours. Future work includes
+          mesh-based navigation plugin and ConvNav plugin integration for unstructured terrain.
+        </div>
+        <div class="stage-algo">Generic Nav2 plugins → mesh/ConvNav (planned) → any UGV</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mapping -->
+<section>
+  <div class="section-label">Work Area 3</div>
+  <h2>Mapping & environment reconstruction</h2>
+  <p>
+    Working on outdoor mapping pipelines using multi-LiDAR (Ouster, Livox, Hesai) data to
+    generate maps for navigation and inspection. Addressing challenges of large-scale outdoor
+    mapping: GPS-aided loop closure, point cloud density management, and map format
+    compatibility with Nav2 costmap layers.
+  </p>
+</section>
+
+<!-- Swarm & Drone -->
+<section>
+  <div class="section-label">Work Area 4</div>
+  <h2>Swarm systems & drone-UGV integration</h2>
+  <p>
+    Implementing multi-robot swarm coordination with DDS tuning for inter-robot communication.
+    Working on integrating a quadruped (dog robot) with a drone for heterogeneous multi-robot
+    operations. DDS discovery, namespace isolation, and bandwidth management across
+    multiple robots on the same network.
+  </p>
+</section>
+
+<!-- Infrastructure -->
+<section>
+  <div class="section-label">Work Area 5</div>
+  <h2>Infrastructure & tooling</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Streaming Agent</span>
+        </div>
+        <div class="stage-desc">
+          Built a software agent that extracts telemetry data from robots and drones in
+          real-time and streams it to Wakeb's cloud platform for monitoring, logging, and
+          fleet management.
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Simulation & DevOps</span>
+        </div>
+        <div class="stage-desc">
+          Extensive work in NVIDIA Isaac Sim and Gazebo (classic + Ignition) for testing
+          navigation and localization before field deployment. Dockerised the full Clearpath
+          software stack for reproducible deployments across the robot fleet.
+        </div>
+        <div class="stage-algo">Isaac Sim + Gazebo → Docker images → fleet deployment</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">DDS Middleware Tuning</span>
+        </div>
+        <div class="stage-desc">
+          Production Fast DDS configuration across all platforms: discovery tuning for
+          multi-robot networks, transport configuration for high-bandwidth LiDAR data,
+          and QoS policy management for reliable sensor data delivery.
+        </div>
+        <div class="stage-algo">Fast DDS profiles → discovery → QoS → multi-robot network</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>Abdalrhman — Senior SLAM & Computer Vision Engineer &bull; 2026</footer>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 5 — Healthcare Robotics System</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Abdalrhman's Portfolio</a>
+  <a href="index.html" class="back">← All Projects</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Project 05 &bull; Healthcare Robotics &bull; End-to-End System &bull; ROS 2</div>
+  <h1>Healthcare Robotics <em>System</em></h1>
+  <p class="hero-sub">
+    Full end-to-end design and implementation of a nursing-assist robot — covering mobile base
+    control, autonomous navigation, dexterous manipulation with a 7-DOF arm + dexterous hand,
+    teleoperation, and a mission-control UI. Built entirely on ROS 2 with real-time hardware interfaces.
+  </p>
+  <div class="tags">
+    <span class="tag highlight">ROS 2 Control</span>
+    <span class="tag highlight">Autonomous Navigation</span>
+    <span class="tag highlight">Manipulation</span>
+    <span class="tag">xArm7</span>
+    <span class="tag">Inspire Hand</span>
+    <span class="tag">Nav2</span>
+    <span class="tag">MoveIt 2</span>
+    <span class="tag">micro-ROS / DDS</span>
+    <span class="tag">Leap Motion</span>
+    <span class="tag">Force Sensing</span>
+    <span class="tag">Qt UI</span>
+    <span class="tag">URDF / SDF</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Problem</div>
+  <h2>A complete robotics platform from scratch</h2>
+  <p>
+    Healthcare environments need robots that can <strong>navigate autonomously indoors,
+    manipulate objects dexterously, and be teleoperated by clinical staff</strong> — all while
+    meeting real-time control requirements and safety constraints. This project required
+    designing every layer: from motor-level hardware interfaces to high-level mission planning.
+  </p>
+</section>
+
+<!-- SUBSYSTEM 1: Mobile Base -->
+<section>
+  <div class="section-label">Subsystem 1</div>
+  <h2>Mobile base — hoverboard motors + ros2_control</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Hardware Interface</span>
+          <span class="stage-script">ros2_control</span>
+        </div>
+        <div class="stage-desc">
+          Designed a real-time hardware interface for hoverboard motors using <code>ros2_control</code>.
+          Wrote custom hardware interface plugins to bridge motor drivers with the ROS 2 control
+          framework, achieving deterministic update rates for differential drive.
+        </div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Microcontroller Integration</span>
+          <span class="stage-script">micro-ROS / DDS</span>
+        </div>
+        <div class="stage-desc">
+          Integrated embedded motor controllers with the ROS 2 graph via micro-ROS (micro-DDS agent),
+          enabling real-time command/feedback loops between the microcontroller and the main compute.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSYSTEM 2: Navigation -->
+<section>
+  <div class="section-label">Subsystem 2</div>
+  <h2>Autonomous indoor navigation</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Perception</span>
+        </div>
+        <div class="stage-desc">
+          LiDAR and camera-based perception for indoor mapping and obstacle detection.
+          Sensor data fused for robust localisation in cluttered hospital-like environments.
+        </div>
+        <div class="stage-algo">LiDAR + cameras → costmap → localisation</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Planning & Execution</span>
+          <span class="stage-script">Nav2</span>
+        </div>
+        <div class="stage-desc">
+          Full Nav2 stack for path planning, behaviour trees, and recovery actions.
+          Autonomous point-to-point navigation in indoor environments with dynamic obstacle avoidance.
+        </div>
+        <div class="stage-algo">AMCL localisation → Nav2 planner → controller → recovery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSYSTEM 3: Manipulation -->
+<section>
+  <div class="section-label">Subsystem 3</div>
+  <h2>Dexterous manipulation — xArm7 + Inspire Hand</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Robot Description & Modelling</span>
+        </div>
+        <div class="stage-desc">
+          Wrote URDF/SDF for the full kinematic chain: xArm7 + Inspire dexterous hand.
+          Added collision meshes, joint limits, and transmission definitions. Integrated
+          with xArm7's RT serial module for real-time joint-level control.
+        </div>
+        <div class="stage-algo">URDF/SDF authoring → collision geometry → ros2_control integration</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">MoveIt 2 Configuration</span>
+        </div>
+        <div class="stage-desc">
+          Full MoveIt 2 setup for xArm7 + Inspire Hand: planning groups, IK solvers,
+          collision detection, and self-collision avoidance. Configured MoveIt Servo for
+          real-time teleoperation input. Planning to upgrade to NVIDIA cuMotion for
+          GPU-accelerated motion planning.
+        </div>
+        <div class="stage-algo">MoveIt 2 config → IK/FK → collision checking → Servo mode</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Force Sensing</span>
+        </div>
+        <div class="stage-desc">
+          Integrated force/torque sensor for contact-aware manipulation. Enables compliant
+          grasping and safe interaction in healthcare tasks.
+        </div>
+        <div class="stage-algo">F/T sensor → contact detection → compliant control</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSYSTEM 4: Teleoperation -->
+<section>
+  <div class="section-label">Subsystem 4</div>
+  <h2>Teleoperation — Leap Motion + MoveIt Servo</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Hand Tracking → Robot Control</span>
+        </div>
+        <div class="stage-desc">
+          Integrated Leap Motion sensor with MoveIt 2 Servo for intuitive teleoperation of the
+          xArm7 + Inspire Hand. Operator hand poses are mapped in real-time to robot end-effector
+          commands, enabling natural dexterous control for remote tasks.
+        </div>
+        <div class="stage-algo">Leap Motion → pose mapping → MoveIt Servo → real-time joint commands</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBSYSTEM 5: Mission UI -->
+<section>
+  <div class="section-label">Subsystem 5</div>
+  <h2>Mission control — Qt UI</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="dot" style="background:transparent;box-shadow:none;"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">Nursing-Assist Mission Interface</span>
+          <span class="stage-script">Qt / ROS 2</span>
+        </div>
+        <div class="stage-desc">
+          Built a Qt-based operator UI for defining and executing nursing-assist missions:
+          room-to-room delivery, patient check-in workflows, and status monitoring.
+          Communicates with Nav2 and manipulation stacks via ROS 2 actions/services.
+        </div>
+        <div class="stage-algo">Qt UI → ROS 2 action client → Nav2 + MoveIt 2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Visuals -->
+<section>
+  <div class="section-label">Demo</div>
+  <h2>Demonstration</h2>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/JIxV180egKU"
+      style="width:100%;height:100%;border:none;"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+  <p class="video-caption">Full healthcare robotics system demonstration</p>
+</section>
+
+<footer>Abdalrhman — Senior SLAM & Computer Vision Engineer &bull; 2026</footer>
+</body>
+</html>

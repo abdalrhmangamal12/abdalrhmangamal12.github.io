@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 3 — Vision-Based Seam Tracking for Robotic Welding</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Abdalrhman's Portfolio</a>
+  <a href="index.html" class="back">← All Projects</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Project 03 &bull; Real-Time Vision &bull; Robotic Control &bull; Industrial</div>
+  <h1>Vision-Based Seam Tracking for <em>Robotic Welding</em></h1>
+  <p class="hero-sub">
+    Real-time closed-loop perception system that detects and tracks welding seams while
+    dynamically correcting robot trajectory during operation — maintaining precise weld
+    placement despite part tolerances and positioning errors in harsh industrial environments.
+  </p>
+  <div class="tags">
+    <span class="tag highlight">Real-Time Vision</span>
+    <span class="tag highlight">Closed-Loop Control</span>
+    <span class="tag highlight">Coordinate Transforms</span>
+    <span class="tag">Camera-Robot Calibration</span>
+    <span class="tag">Seam Detection</span>
+    <span class="tag">Low-Latency Pipeline</span>
+    <span class="tag">Industrial Robotics</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Problem</div>
+  <h2>Precision welding under real-world uncertainty</h2>
+  <p>
+    Pre-programmed robot paths assume perfect part placement, but in practice parts have
+    <strong>tolerances, fixturing errors, and thermal distortion</strong> that shift the actual
+    seam position. Without real-time correction, weld quality degrades — causing rework,
+    scrap, or structural failures. The system must operate under glare, arc light, and
+    reflections that defeat conventional vision approaches.
+  </p>
+</section>
+
+<section>
+  <div class="section-label">Architecture</div>
+  <h2>Closed-loop perception → correction pipeline</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">1 — Vision Sensor Integration</span>
+        </div>
+        <div class="stage-desc">
+          Vision sensor mounted near the welding tool (TCP) for direct seam observation.
+          Optics and sensor selected for required accuracy and working distance, hardened
+          against arc light, glare, and spatter.
+        </div>
+        <div class="stage-algo">Sensor selection → mounting near TCP → environmental hardening</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">2 — Seam Detection & Feature Extraction</span>
+        </div>
+        <div class="stage-desc">
+          Detect seam position using structured visual features. Robust under challenging
+          industrial conditions — specular reflections, varying surface finish, and welding
+          arc interference are handled at the image processing level.
+        </div>
+        <div class="stage-algo">Image acquisition → feature extraction → seam localisation</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">3 — Camera-to-Robot Calibration</span>
+        </div>
+        <div class="stage-desc">
+          Full calibration chain: camera frame ↔ TCP ↔ robot base. Seam position in image
+          coordinates is transformed into the robot's coordinate frame for direct path correction.
+        </div>
+        <div class="stage-algo">Hand-eye calibration → T_cam→TCP → T_TCP→base</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">4 — Real-Time Tracking & Online Correction</span>
+        </div>
+        <div class="stage-desc">
+          Continuous seam position estimation during robot motion. Low-latency communication
+          feeds correction offsets to the robot controller, which adjusts the planned path
+          on-the-fly to maintain alignment throughout the entire weld.
+        </div>
+        <div class="stage-algo">Perception loop → offset computation → controller correction @ cycle rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p style="font-size: 13px; color: var(--text-muted); font-style: italic;">
+    Project performed for a US-based company — additional material available privately upon request.
+  </p>
+</section>
+
+<footer>Abdalrhman — Senior SLAM & Computer Vision Engineer &bull; 2026</footer>
+</body>
+</html>

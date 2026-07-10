@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 2 — Mobile Mapping & Localization (JAWESO)</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Abdalrhman's Portfolio</a>
+  <a href="index.html" class="back">← All Projects</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Project 02 &bull; Mobile Mapping &bull; Sensor Fusion &bull; 6-Month Engagement</div>
+  <h1>High-Precision Mobile Mapping & <em>Localization System</em></h1>
+  <p class="hero-sub">
+    Integrated JAWESO Panora (360° multi-camera) and Planar systems into a mobile mapping pipeline
+    with RTK-GNSS, LiDAR, and IMU fusion — achieving &lt;10 cm absolute positional accuracy
+    for digital twin generation and infrastructure inspection.
+  </p>
+  <div class="tags">
+    <span class="tag highlight">Sensor Fusion</span>
+    <span class="tag highlight">Localization</span>
+    <span class="tag highlight">LiDAR + Visual Odometry</span>
+    <span class="tag">ROS 2</span>
+    <span class="tag">RTK-GNSS</span>
+    <span class="tag">IMU</span>
+    <span class="tag">Multi-Camera Calibration</span>
+    <span class="tag">Point Clouds</span>
+    <span class="tag">Digital Twins</span>
+    <span class="tag">Python</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Problem</div>
+  <h2>Centimetre-accurate mapping at scale</h2>
+  <p>
+    Urban and railway infrastructure inspection demands <strong>georeferenced 3D reconstruction</strong>
+    with sub-decimetre accuracy from a moving vehicle. This requires fusing heterogeneous sensors
+    (6-camera panoramic rig, LiDAR, IMU, RTK-GNSS, wheel odometry) with tight time synchronisation
+    and robust calibration across wide-angle imaging conditions.
+  </p>
+</section>
+
+<section>
+  <div class="section-label">Sensor Stack</div>
+  <h2>Hardware integration</h2>
+  <div class="metrics">
+    <div class="metric-card">
+      <div class="metric-val">134 MP</div>
+      <div class="metric-label">Panora 360° (6 × 24.4 MP)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">&lt;10 cm</div>
+      <div class="metric-label">Absolute accuracy</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">7</div>
+      <div class="metric-label">Fused sensor modalities</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">6 mo</div>
+      <div class="metric-label">Industry engagement</div>
+    </div>
+  </div>
+  <table class="data-table">
+    <thead><tr><th>Sensor</th><th>Role</th><th>Key Spec</th></tr></thead>
+    <tbody>
+      <tr><td>JAWESO Panora</td><td>360° panoramic capture</td><td>6 × 24.4 MP, 134 MP total</td></tr>
+      <tr><td>JAWESO Planar</td><td>Targeted high-res imaging</td><td>Multi-camera, configurable FOV</td></tr>
+      <tr><td>RTK-GNSS</td><td>Global position fix</td><td>Centimetre-level</td></tr>
+      <tr><td>IMU</td><td>Attitude & motion estimation</td><td>6-DOF</td></tr>
+      <tr><td>LiDAR</td><td>3D geometry capture</td><td>Dense point cloud</td></tr>
+      <tr><td>Visual Odometry</td><td>Inter-frame motion</td><td>Camera-based</td></tr>
+      <tr><td>Vehicle Odometry</td><td>Wheel-tick dead reckoning</td><td>Encoder-based</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-label">Architecture</div>
+  <h2>End-to-end pipeline</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">1 — Sensor Synchronisation</span>
+        </div>
+        <div class="stage-desc">
+          Designed time-alignment between vehicle odometry, NMEA/PPS triggers, and multi-camera
+          capture. Ensured all modalities share a consistent timebase for downstream fusion.
+        </div>
+        <div class="stage-algo">NMEA/PPS trigger → hardware sync → unified timestamp</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">2 — Calibration</span>
+        </div>
+        <div class="stage-desc">
+          Multi-camera intrinsic and extrinsic calibration for panoramic and planar rigs.
+          Camera–LiDAR–IMU extrinsic calibration with sub-pixel reprojection accuracy,
+          robust across wide-angle imaging conditions.
+        </div>
+        <div class="stage-algo">Intrinsic cal → cross-modal extrinsic cal → reprojection validation</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">3 — Multi-Sensor Fusion & Localization</span>
+        </div>
+        <div class="stage-desc">
+          Fused RTK-GNSS, LiDAR, IMU, and camera data for vehicle localization.
+          Developed both visual and LiDAR-based odometry pipelines, achieving consistent
+          &lt;10 cm absolute positional accuracy.
+        </div>
+        <div class="stage-algo">RTK + LiDAR + IMU + VO → fused pose estimation</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">4 — Georeferenced Point Cloud Generation</span>
+        </div>
+        <div class="stage-desc">
+          Generated dense, georeferenced point clouds from panoramic and planar imagery
+          combined with LiDAR geometry. Output suitable for digital twin and inspection workflows.
+        </div>
+        <div class="stage-algo">Fused pose + LiDAR + imagery → georeferenced 3D map</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">5 — Automated Data Pipeline</span>
+        </div>
+        <div class="stage-desc">
+          End-to-end automation: data ingest → mapping → localization → visualisation.
+          Implemented in ROS 2 with custom Python tooling. Plug-and-play integration
+          into the existing localization stack.
+        </div>
+        <div class="stage-algo">ROS 2 orchestration → automated ingest → export</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Reference</div>
+  <h2>Product page</h2>
+  <a href="https://www.jaweso.com/products" target="_blank" rel="noopener" class="ext-link-card">
+    <div class="ext-link-icon">&#127758;</div>
+    <div class="ext-link-body">
+      <div class="ext-link-label">Product Page</div>
+      <div class="ext-link-title">JAWESO — Panora &amp; Planar Mobile Mapping Systems</div>
+      <div class="ext-link-url">jaweso.com/products</div>
+    </div>
+    <div class="ext-link-arrow">&#8594;</div>
+  </a>
+  <p class="video-caption">JAWESO product lineup — Panora 360&deg; and Planar imaging systems</p>
+</section>
+
+<section>
+  <div class="section-label">Validation</div>
+  <h2>Deployment environments</h2>
+  <p>
+    System tested in <strong>urban environments</strong> and <strong>railway infrastructure mapping</strong>,
+    delivering consistent high-fidelity mapping performance with plug-and-play integration
+    into the existing localization stack.
+  </p>
+</section>
+
+<footer>Abdalrhman — Senior SLAM & Computer Vision Engineer &bull; 2026</footer>
+</body>
+</html>

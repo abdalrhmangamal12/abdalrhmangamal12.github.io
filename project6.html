@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project 6 — SafeSight: GPS-Denied Drone Inspection via LiDAR-Inertial Odometry</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Abdalrhman's Portfolio</a>
+  <a href="index.html" class="back">← All Projects</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Project 06 &bull; LiDAR-Inertial SLAM &bull; GPS-Denied Flight &bull; Multi-Release</div>
+  <h1>SafeSight: GPS-Denied Drone Inspection via <em>LiDAR-Inertial Odometry</em></h1>
+  <p class="hero-sub">
+    Modular perception device (mountable on drones, mobile robots, or handheld) that provides
+    real-time LiDAR-inertial odometry to PX4 as external VIO — enabling position-hold and
+    autonomous inspection in underground and industrial GPS-denied environments.
+    Multiple releases shipping LIO-RF, FAST-LIO2, and Point-LIO backends.
+  </p>
+  <div class="tags">
+    <span class="tag highlight">LiDAR-Inertial SLAM</span>
+    <span class="tag highlight">GPS-Denied Navigation</span>
+    <span class="tag highlight">PX4 External VIO</span>
+    <span class="tag">Ouster OS1-128</span>
+    <span class="tag">VectorNav VN-310</span>
+    <span class="tag">FAST-LIO2</span>
+    <span class="tag">Point-LIO</span>
+    <span class="tag">LIO-RF</span>
+    <span class="tag">Fast DDS + SHM</span>
+    <span class="tag">ROS 2 Humble</span>
+    <span class="tag">MAVLink</span>
+    <span class="tag">EKF2</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Problem</div>
+  <h2>Position control where GPS cannot reach</h2>
+  <p>
+    Underground tunnels, mines, and industrial interiors have <strong>no GPS and unreliable
+    barometers</strong>. Without an external position source, PX4's EKF2 falls into inertial
+    dead-reckoning within seconds — uncertainty explodes, position-hold drifts, and the
+    drone becomes uncontrollable. The SafeSight device solves this by supplying continuous,
+    high-rate LiDAR-inertial odometry as the drone's primary position aiding source.
+  </p>
+</section>
+
+<!-- Hardware -->
+<section>
+  <div class="section-label">Hardware</div>
+  <h2>SafeSight sensor payload</h2>
+  <div class="metrics">
+    <div class="metric-card">
+      <div class="metric-val">128</div>
+      <div class="metric-label">Ouster OS1-128 channels</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">VN-310</div>
+      <div class="metric-label">VectorNav dual-GNSS/INS</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">2</div>
+      <div class="metric-label">SLAM releases shipped</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">PX4</div>
+      <div class="metric-label">Cube Orange+ v1.16</div>
+    </div>
+  </div>
+  <p>
+    The SafeSight device is <strong>platform-agnostic</strong> — designed to mount on any drone,
+    mobile robot, or be carried handheld. The same hardware and software stack serves all
+    form factors.
+  </p>
+</section>
+
+<!-- Pipeline -->
+<section>
+  <div class="section-label">Architecture</div>
+  <h2>LiDAR-inertial odometry → PX4 EKF2 pipeline</h2>
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">1 — Sensor Synchronisation & Calibration</span>
+        </div>
+        <div class="stage-desc">
+          LiDAR-to-IMU time synchronisation using hardware PPS and software timestamp alignment.
+          Extrinsic calibration between Ouster OS1-128 and VectorNav VN-310. Handling of
+          different reference frames and coordinate transforms (sensor → body → NED/ENU → PX4 local).
+        </div>
+        <div class="stage-algo">PPS sync → extrinsic cal → TF chain: sensor → body → PX4 local</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">2 — LiDAR-Inertial Odometry (Multi-Backend)</span>
+        </div>
+        <div class="stage-desc">
+          <strong>Release 1:</strong> LIO-RF — initial backend for proof-of-concept flights.<br>
+          <strong>Release 2:</strong> FAST-LIO2 and Point-LIO — tightly-coupled iterated-EKF
+          backends with improved accuracy and robustness in degenerate geometries.
+          Each backend outputs 6-DOF pose at IMU rate.
+        </div>
+        <div class="stage-algo">OS1-128 + VN-310 → LIO-RF / FAST-LIO2 / Point-LIO → 6-DOF pose</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">3 — High-Throughput DDS Transport</span>
+        </div>
+        <div class="stage-desc">
+          Ouster OS1-128 at 20 Hz produces ~6–8 MB/scan. Configured Fast DDS with shared memory
+          (SHM) transport to handle point cloud throughput without packet loss. Tuned
+          <code>maxMessageSize</code>, fragment sizes, and kernel socket buffers for
+          reliable intra-host delivery.
+        </div>
+        <div class="stage-algo">Fast DDS SHM → maxMessageSize tuning → kernel rmem_max</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">4 — PX4 External Vision Integration</span>
+        </div>
+        <div class="stage-desc">
+          Odometry pose streamed to PX4 via MAVLink ODOMETRY message as external vision input
+          to EKF2. Configured EV aiding parameters, timestamp conventions, covariance scaling,
+          and delay compensation. Validated fusion via <code>estimator_aid_src_ev_*</code>
+          and <code>vehicle_local_position</code> diagnostics.
+        </div>
+        <div class="stage-algo">LIO pose → MAVLink ODOMETRY → EKF2 EV fusion → position-hold</div>
+      </div>
+    </div>
+    <div class="pipeline-stage">
+      <div class="line-col"><div class="dot"></div><div class="connector"></div></div>
+      <div class="stage-content">
+        <div class="stage-header">
+          <span class="stage-title">5 — Failsafe & Robustness Hardening</span>
+        </div>
+        <div class="stage-desc">
+          Diagnosed and resolved position-hold instability when odometry drops: EKF2 falls to
+          dead-reckoning (<code>dead_reckoning=1</code>), <code>xy_valid</code> drops,
+          <code>eph</code> saturates. Implemented failsafe gating: position mode blocked unless
+          local position is valid; automatic fallback to Altitude/Stabilised on aiding loss.
+          Validated with controlled no-odometry isolation flights.
+        </div>
+        <div class="stage-algo">EKF health monitoring → mode gating → graceful degradation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Diagnostic Work -->
+<section>
+  <div class="section-label">Diagnostic Deep-Dive</div>
+  <h2>EKF2 failure analysis</h2>
+  <p>
+    Conducted systematic flight-log analysis across a series of flights (good baseline + failed + controlled isolation)
+    to diagnose position-hold instability. Identified the failure signature:
+  </p>
+  <table class="data-table">
+    <thead><tr><th>Indicator</th><th>Healthy</th><th>Failure</th></tr></thead>
+    <tbody>
+      <tr><td><code>dead_reckoning</code></td><td>0 (aiding active)</td><td>1 (inertial drift)</td></tr>
+      <tr><td><code>xy_valid</code></td><td>1</td><td>0 (position invalid)</td></tr>
+      <tr><td><code>eph</code></td><td>Low, stable</td><td>Saturating / diverging</td></tr>
+      <tr><td><code>xy_reset_counter</code></td><td>Stable</td><td>Incrementing repeatedly</td></tr>
+    </tbody>
+  </table>
+  <p>
+    Root causes investigated: odometry stream dropout, timestamp/timesync mismatches,
+    covariance scaling issues, and insufficient update rate. Controlled isolation flights
+    (odometry intentionally stopped) confirmed the failure signature matches "aiding missing."
+  </p>
+</section>
+
+<section>
+  <div class="section-label">Reference</div>
+  <h2>Project website</h2>
+  <a href="https://safesightxp.com/db4-underground-drone/" target="_blank" rel="noopener" class="ext-link-card">
+    <div class="ext-link-icon">&#127758;</div>
+    <div class="ext-link-body">
+      <div class="ext-link-label">Project Website</div>
+      <div class="ext-link-title">SafeSight XP — DB4 Underground Drone</div>
+      <div class="ext-link-url">safesightxp.com/db4-underground-drone</div>
+    </div>
+    <div class="ext-link-arrow">&#8594;</div>
+  </a>
+  <p class="video-caption">Official SafeSight product page &amp; flight demonstrations</p>
+</section>
+
+<footer>Abdalrhman — Senior SLAM & Computer Vision Engineer &bull; 2026</footer>
+</body>
+</html>
